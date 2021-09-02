@@ -1,0 +1,7 @@
+안스 
+
+color code = hex code
+
+<Linear Layout 
+<Relative Layout
+<Constaint Layout 
