@@ -1,12 +1,15 @@
 package com.example.ecomap
 
 //for map
+import android.Manifest
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.Signature
 import android.database.Cursor
+import android.location.Location
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
@@ -14,12 +17,14 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.ecomap.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
+import net.daum.mf.map.api.MapPoint
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -27,7 +32,8 @@ import java.security.NoSuchAlgorithmException
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
+    private var eobobo: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,30 +52,14 @@ class MainActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
 
-        //To be implemented
-        map_buttons()
+        val manager=getSystemService(LOCATION_SERVICE) as LocationManager
+        val location: Location? = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        binding.mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(location!!.latitude, location!!.longitude), false);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED) {
 
-        //test
-        test()
-
-        //Get Hash Key of the computer, needed for initial registration on Kakao Developers
-        fun getHashKey(){
-            var packageInfo : PackageInfo = PackageInfo()
-            try {
-                packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
-            } catch (e: PackageManager.NameNotFoundException){
-                e.printStackTrace()
-            }
-            for (signature: Signature in packageInfo.signatures){
-                try{
-                    var md: MessageDigest = MessageDigest.getInstance("SHA")
-                    md.update(signature.toByteArray())
-                    Log.e("KEY_HASH", Base64.encodeToString(md.digest(), Base64.DEFAULT))
-                } catch(e: NoSuchAlgorithmException){
-                    Log.e("KEY_HASH", "Unable to get MessageDigest. signature = " + signature, e)
-                }
-            }
         }
+
+
     }
 
 
@@ -93,6 +83,25 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    //Get Hash Key of the developing device, needed for initial registration on Kakao Developers
+    fun getHashKey(){
+        var packageInfo : PackageInfo = PackageInfo()
+        try {
+            packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+        } catch (e: PackageManager.NameNotFoundException){
+            e.printStackTrace()
+        }
+        for (signature: Signature in packageInfo.signatures){
+            try{
+                var md: MessageDigest = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                Log.e("KEY_HASH", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+            } catch(e: NoSuchAlgorithmException){
+                Log.e("KEY_HASH", "Unable to get MessageDigest. signature = " + signature, e)
+            }
+        }
     }
 }
 

@@ -1,9 +1,14 @@
 package com.example.ecomap
 
-fun map_buttons() {
-    TODO()
-}
+import androidx.appcompat.app.AppCompatActivity
+import net.daum.mf.map.api.MapPoint
+/*
+fun map_buttons(myparent: AppCompatActivity) {
+    myparent
+    binding.mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(location!!.latitude, location!!.longitude), false);
 
+}
+*/
 /*
 val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
         if (isGranted) {

@@ -20,10 +20,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include
-        android:id="@+id/content_main"
-        layout="@layout/content_main"
-        />
 
     <net.daum.mf.map.api.MapView
         android:id="@+id/map_view"
@@ -37,5 +33,11 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+
+
+    <include
+        android:id="@+id/content_main"
+        layout="@layout/content_main"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
