@@ -12,73 +12,18 @@ import java.sql.Statement
  * Program to list databases in MySQL using Kotlin
  */
 
-
-object MySQLDatabaseExampleKotlin {
+object MySQLconnection {
 
     internal var conn: Connection? = null
-//    internal var username = "jiheun"
-//    internal var password =  "eksdjtlgja20!"
-
-    internal var username = "dongledbadmin"
-    internal var password =  "dongledbadmin!@"
+    internal val username = "dongledbadmin"
+    internal val password =  "dongledbadmin!@"
 
     @JvmStatic fun main(args: Array<String>) {
         // make a connection to MySQL Server
         getConnection()
-        // execute the query via connection object
-        executeMySQLQuery()
+        val test = Mysqlfuctions()
+        test.showDatabase(conn)
     }
-
-    fun executeMySQLQuery() {
-        var stmt: Statement? = null
-        var rs: ResultSet? = null
-
-        try {
-            stmt = conn!!.createStatement()
-            rs = stmt!!.executeQuery("SHOW DATABASES;") /*SHOW schema makes error*/
-
-
-            if (stmt.execute("SHOW DATABASES;")) {
-                rs = stmt.resultSet
-            }
-
-            while (rs!!.next()) {
-                println(rs.getString("Database"))
-            }
-        } catch (ex: SQLException) {
-            // handle any errors
-            ex.printStackTrace()
-        } finally {
-            // release resources
-            if (rs != null) {
-                try {
-                    rs.close()
-                } catch (sqlEx: SQLException) {
-                }
-
-                rs = null
-            }
-
-            if (stmt != null) {
-                try {
-                    stmt.close()
-                } catch (sqlEx: SQLException) {
-                }
-
-                stmt = null
-            }
-
-            if (conn != null) {
-                try {
-                    conn!!.close()
-                } catch (sqlEx: SQLException) {
-                }
-
-                conn = null
-            }
-        }
-    }
-
 
 /**
      * This method makes a connection to MySQL Server
@@ -107,3 +52,4 @@ object MySQLDatabaseExampleKotlin {
         }
     }
 }
+
