@@ -11,8 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
@@ -24,16 +22,20 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  */
-abstract class MainFragment : Fragment() {
+class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
-    //private val camCallback : ActivityResultCallback<ActivityResult> =
-    
+
+    lateinit var filePath: String
     //Register a callback for activity result
-    val camLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) {    }
+    val camLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { result ->
+        if (result == true) {
+            executeAfterResult(filePath)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,12 +55,16 @@ abstract class MainFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun takePicture() {
         val toast = Toast.makeText(context, "Add Pin button works!", Toast.LENGTH_SHORT)
         toast.show()
 
         //Make file
-        lateinit var filePath: String
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir: File? = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val file = File.createTempFile(
@@ -75,11 +81,17 @@ abstract class MainFragment : Fragment() {
         )
         camLauncher.launch(photoURI)
 
-        ActivityResultCallback<> {  }
 
     }
 
-    private fun accessPicture(){
+    private fun executeAfterResult(filePath : String){
+        val toast = Toast.makeText(context, "Result is called back!", Toast.LENGTH_SHORT)
+        toast.show()
+
+        accessPicture(filePath)
+    }
+
+    private fun accessPicture(filePath : String){
         //try bitmap
         val option = BitmapFactory.Options()
         option.inSampleSize = 10
@@ -90,11 +102,6 @@ abstract class MainFragment : Fragment() {
             binding.expCapture.setImageBitmap(bitmap)
             binding.expCapture.invalidate()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
 
