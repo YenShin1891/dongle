@@ -21,6 +21,7 @@ import com.example.ecomap4.databinding.FragmentMapBinding
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapView
+import net.daum.mf.map.n.api.internal.NativeMapLocationManager.setCurrentLocationTrackingMode
 
 
 /**
@@ -57,11 +58,19 @@ class MapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         val mapView = MapView(context)
         val mapViewContainer = binding.mapView as ViewGroup
         mapViewContainer.addView(mapView)
 
-        //experimental pin at seoul station
+        //experimental marker at seoul station
         val marker = MapPOIItem()
         marker.itemName = "Default Marker"
         marker.tag = 0
@@ -72,49 +81,41 @@ class MapFragment : Fragment() {
         marker.selectedMarkerType = MapPOIItem.MarkerType.RedPin
         mapView.addPOIItem(marker)
 
-        //track current location
-        val manager = requireContext().getSystemService(AppCompatActivity.LOCATION_SERVICE) as LocationManager
-        var lastKnownLocation: Location? = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        val isGPSEnabled =
-            manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        if (lastKnownLocation != null) {
-            Log.d("Test", "GPS Location changed, Latitude: ${lastKnownLocation.latitude}" +
-                    ", Longitude: ${lastKnownLocation.longitude}, GPSEnabled=${isGPSEnabled}")
-        }
-        else{
-            Log.d("Test", "somehow we don't have available gps location, GPSEnabled=${isGPSEnabled}")
-        }
-
-        var locationListener: LocationListener = object : LocationListener {
-            override fun onLocationChanged(location: Location) {
-                lastKnownLocation=location
-                Log.d("Test", "GPS Location changed, Latitude: ${location.latitude}" +
-                        ", Longitude: ${location.longitude}")
-
+        //track current location, store it at currentLocation
+        var currentLocation: MapPoint = MapPoint.mapPointWithGeoCoord(37.555923849029526, 126.97232388116235)
+        var locationListener: MapView.CurrentLocationEventListener = object : MapView.CurrentLocationEventListener{
+            override fun onCurrentLocationUpdate(mapView : MapView, currentLocationInListener : MapPoint, accuracyInMeters : Float){
+                currentLocation=currentLocationInListener
+                Log.d("Location", "currentLocation updated")
             }
-            override fun onProviderEnabled(provider: String) {
-                Log.d("Test", "gpsListener is listening providerenabled")
+            override fun onCurrentLocationDeviceHeadingUpdate(p0: MapView?, p1: Float) {
             }
-            override fun onProviderDisabled(provider: String) {
-                Log.d("Test", "gpsListener is listening providerdisabled")
+            override fun onCurrentLocationUpdateFailed(p0: MapView?) {
+                Log.d("Location", "currentLocation update failed")
+            }
+            override fun onCurrentLocationUpdateCancelled(p0: MapView?) {
             }
         }
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            //manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener);
-            manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener);
-        }
+        mapView.setCurrentLocationEventListener(locationListener)
+        mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
+        mapView.setShowCurrentLocationMarker(true)
 
         //move map center to current location if we have permission, else display toast message
         binding.myLocationButton.setOnClickListener {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lastKnownLocation!!.latitude, lastKnownLocation!!.longitude), false);
+                if (currentLocation != null){
+                    mapView.setMapCenterPoint(currentLocation, true)
+                }
+                else{
+                    val toast = Toast.makeText(this.context, "We don't know where you are, but we do have permission", Toast.LENGTH_SHORT)
+                    toast.show()
+                }
             }
             else{
                 val toast = Toast.makeText(this.context, "give me permission", Toast.LENGTH_SHORT)
                 toast.show()
             }
         }
-
     }
 
     override fun onDestroyView() {
