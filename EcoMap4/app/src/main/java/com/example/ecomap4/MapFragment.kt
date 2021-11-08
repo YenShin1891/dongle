@@ -59,30 +59,27 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-
         val mapView = MapView(context)
+        mapView.mapType=MapView.MapType.Hybrid
         val mapViewContainer = binding.mapView as ViewGroup
+        var currentLocation: MapPoint = MapPoint.mapPointWithGeoCoord(36.372884, 127.363503)
+        mapView.setMapCenterPoint(currentLocation, false)
+
         mapViewContainer.addView(mapView)
 
-        //experimental marker at seoul station
+        //initiating markers
         val marker = MapPOIItem()
         marker.itemName = "Default Marker"
         marker.tag = 0
-        marker.mapPoint = MapPoint.mapPointWithGeoCoord(37.555923849029526, 126.97232388116235)
+        marker.mapPoint = MapPoint.mapPointWithGeoCoord(36.372884, 127.363503)
 
         //need to designate two forms: not clicked, and when clicked. currently in default form
         marker.markerType = MapPOIItem.MarkerType.BluePin
         marker.selectedMarkerType = MapPOIItem.MarkerType.RedPin
         mapView.addPOIItem(marker)
 
+
         //track current location, store it at currentLocation
-        var currentLocation: MapPoint = MapPoint.mapPointWithGeoCoord(37.555923849029526, 126.97232388116235)
         var locationListener: MapView.CurrentLocationEventListener = object : MapView.CurrentLocationEventListener{
             override fun onCurrentLocationUpdate(mapView : MapView, currentLocationInListener : MapPoint, accuracyInMeters : Float){
                 currentLocation=currentLocationInListener
@@ -116,7 +113,10 @@ class MapFragment : Fragment() {
                 toast.show()
             }
         }
+
+
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
