@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.ecomap4.databinding.FragmentMapBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapView
@@ -114,6 +115,8 @@ class MapFragment : Fragment() {
             }
         }
 
+        //Floating window to show when a pin is touched
+        val bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
 
     }
 
