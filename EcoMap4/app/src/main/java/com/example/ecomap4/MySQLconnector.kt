@@ -11,6 +11,7 @@ import java.sql.Statement
 /**
  * Program to list databases in MySQL using Kotlin
  */
+/*
 
 object MySQLconnection {
 
@@ -23,6 +24,9 @@ object MySQLconnection {
         getConnection()
         val test = Mysqlfuctions()
         test.showDatabase(conn)
+        test.getPinLocation(conn)
+
+        closeConnection()
     }
 
 /**
@@ -51,5 +55,17 @@ object MySQLconnection {
             ex.printStackTrace()
         }
     }
+
+    fun closeConnection() {
+        if (conn != null) {
+                try{
+                    conn!!.close()
+                } catch (sqlEx: SQLException){
+                }
+
+                conn = null
+            }
+    }
 }
 
+*/
