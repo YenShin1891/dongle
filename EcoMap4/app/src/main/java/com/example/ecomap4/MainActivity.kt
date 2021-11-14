@@ -83,8 +83,8 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
         mapView.setShowCurrentLocationMarker(true)
 
-        //var currentLocation: MapPoint = MapPoint.mapPointWithGeoCoord(36.372884, 127.363503)
-        //mapView.setMapCenterPoint(currentLocation, false)
+        currentLocation= MapPoint.mapPointWithGeoCoord(36.372884, 127.363503)
+        mapView.setMapCenterPoint(currentLocation, false)
 
         //Floating window to show when a pin is touched
         bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
