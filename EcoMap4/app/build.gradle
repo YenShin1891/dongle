@@ -24,8 +24,9 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true // AWS SDK
+        sourceCompatibility JavaVersion.VERSION_1_8 // AWS SDK + connection
+        targetCompatibility JavaVersion.VERSION_1_8 // AWS SDK + connection
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -64,6 +65,13 @@ dependencies {
     implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.35.0'
     implementation 'com.amazonaws:aws-android-sdk-cognito:2.20.1'
     implementation 'com.amazonaws:aws-android-sdk-s3:2.35.0'
+
+    // AWS SDK INTEGRATION
+    // Amplify core dependency
+    implementation 'com.amplifyframework:core:1.28.3'
+    // Support for Java 8 features
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
 
 
 }

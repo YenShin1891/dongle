@@ -1,0 +1,10 @@
+{
+  "storage": {
+    "plugins": {
+      "awsS3StoragePlugin": {
+        "bucket": "dongle2021awsbuket",
+        "region": "ap-northeast-2"
+      }
+    }
+  }
+}

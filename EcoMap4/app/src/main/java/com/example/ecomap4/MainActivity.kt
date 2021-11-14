@@ -23,6 +23,8 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility
 import com.amazonaws.regions.Region
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3Client
+import com.amplifyframework.AmplifyException
+import com.amplifyframework.core.Amplify
 import com.example.ecomap4.databinding.ActivityMainBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.navigation.NavigationView
@@ -44,6 +46,13 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         setContentView(binding.root)
 
         val UserID= Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID) // context to this
+
+        try {
+            Amplify.configure(applicationContext)
+            Log.d("AWSamplify", "Initialized Amplify")
+        } catch (error: AmplifyException) {
+            Log.d("AWSamplify", "Could not initialize Amplify", error)
+        }
 
         val button = findViewById<Button>(R.id.sample_button)
         button.setOnClickListener{

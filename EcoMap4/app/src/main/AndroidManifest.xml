@@ -21,6 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EcoMap4"
         android:usesCleartextTraffic="true">
+        <!-- android:name=".awsAmplifier" -->
+
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
