@@ -1,5 +1,6 @@
 package com.example.ecomap4
 
+import android.util.Log
 import java.lang.System.out
 import java.util.*
 import java.sql.Connection
@@ -46,17 +47,20 @@ class Mysqlfunctions() {
                 "jdbc:" + "mysql" + "://" +
                         "tsclouddb.cn3e2kgsuevi.ap-northeast-2.rds.amazonaws.com" +
                         ":" + "3306" + "/" +
-                        "",
+                        "", // &serverTimezone=UTC
                 connectionProps
             )
 
         } catch (ex: SQLException) {
             // handle any errors
             ex.printStackTrace()
+            //Log.v("connection", "sqlexception")
         } catch (ex: Exception) {
             // handle any errors
             ex.printStackTrace()
+            //Log.v("connection", "geunyang Exception")
         }
+        //Log.v("connection", "${conn}")
     }
 
 
@@ -125,8 +129,9 @@ class Mysqlfunctions() {
         var listofrs = mutableListOf<Triple<String, Double, Double>>()
         try {
             println("#In pin location#")
-            //println(conn == null)
-            stmt = conn!!.createStatement()
+            println(conn == null)
+            //Log.d("connection","${conn == null}")
+            stmt = conn!!.createStatement() //error
             rs = stmt!!.executeQuery("SELECT PinID, GPS FROM dongledb.Main;")
             var triple: Triple<String, String, String>
 

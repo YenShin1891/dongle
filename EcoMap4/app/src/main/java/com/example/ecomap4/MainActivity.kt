@@ -32,6 +32,7 @@ import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import java.io.File
+import kotlin.collections.mutableListOf as mutableListOf
 
 class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapView.CurrentLocationEventListener{
 
@@ -91,9 +92,19 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         //Add POIItems
-        val firstMarker=addMapPOIItem("hehe", 36.372885, 127.363504)
-        val secondMarker=addMapPOIItem("hihi", 36.372800, 127.363599)
-        var markerList = mutableListOf(firstMarker, secondMarker)
+        val sql = Mysqlfunctions() //1
+        sql.getConnection() //2
+
+        var locationList = sql.getPinLocation()  //3 error
+        var markerList = mutableListOf<MapPOIItem>()
+        for (i in locationList){
+            val newMarker=addMapPOIItem(i.first, i.second, i.third)
+            markerList.add(newMarker)
+        }
+
+        //val firstMarker=addMapPOIItem("hehe", 36.372885, 127.363504)
+        //val secondMarker=addMapPOIItem("hihi", 36.372800, 127.363599)
+        //var markerList = mutableListOf(firstMarker, secondMarker)
 
         //move map center to current location if we have permission, else display toast message
         binding.myLocationButton.setOnClickListener {
@@ -180,7 +191,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         })
     }
 
-
+    //======from below sang seong ei 's space======
     //======from below sang seong ei 's space======
     private fun addMapPOIItem(idInput: String, lat: Double, lon: Double): MapPOIItem{
         val pin = MapPOIItem()
