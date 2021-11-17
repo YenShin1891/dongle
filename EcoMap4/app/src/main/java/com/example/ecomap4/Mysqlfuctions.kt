@@ -39,28 +39,36 @@ class Mysqlfunctions() {
 
     fun getConnection() {
         val connectionProps = Properties()
-        connectionProps.put("user", username)
-        connectionProps.put("password", password)
+        connectionProps.put("user", this.username)
+        connectionProps.put("password", this.password)
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance()
-            conn = DriverManager.getConnection(
+            /*
+            var driver = DriverManager.getDriver("jdbc:" + "mysql" + "://" +
+                    "tsclouddb.cn3e2kgsuevi.ap-northeast-2.rds.amazonaws.com" +
+                    ":" + "3306" + "/")
+            Log.d("driverconnection", "${driver}")
+            Log.d("driverconnection", "${connectionProps}")
+            */
+            this.conn = DriverManager.getConnection(
                 "jdbc:" + "mysql" + "://" +
                         "tsclouddb.cn3e2kgsuevi.ap-northeast-2.rds.amazonaws.com" +
                         ":" + "3306" + "/" +
-                        "", // &serverTimezone=UTC
+                        "",
                 connectionProps
             )
 
-        } catch (ex: SQLException) {
+        } /*catch (ex: SQLException) {
             // handle any errors
             ex.printStackTrace()
-            //Log.v("connection", "sqlexception")
-        } catch (ex: Exception) {
+            Log.d("connection!", "sqlexception")
+        } */
+        catch (ex: Exception) {
             // handle any errors
             ex.printStackTrace()
-            //Log.v("connection", "geunyang Exception")
+            Log.d("connection!", "geunyang Exception")
         }
-        //Log.v("connection", "${conn}")
+        Log.d("connection!", "${this.conn}")
     }
 
 
@@ -69,17 +77,17 @@ class Mysqlfunctions() {
         try {
             println("#In show database#")
             //println(conn == null)
-            stmt = conn!!.createStatement()
-            rs = stmt!!.executeQuery("SHOW DATABASES;")
+            this.stmt = this.conn!!.createStatement()
+            this.rs = this.stmt!!.executeQuery("SHOW DATABASES;")
 
             // or alternatively, if you don't know ahead of time that
             // the query will be a SELECT...
 
-            if (stmt!!.execute("SHOW DATABASES;")) {
-                rs = stmt!!.resultSet
+            if (this.stmt!!.execute("SHOW DATABASES;")) {
+                this.rs = this.stmt!!.resultSet
             }
-            while (rs!!.next()) {
-                println(rs!!.getString("Database"))
+            while (this.rs!!.next()) {
+                println(this.rs!!.getString("Database"))
             }
 
         } catch (ex: SQLException) {
@@ -93,32 +101,32 @@ class Mysqlfunctions() {
             // in reverse-order of their creation
             // if they are no-longer needed
 
-            if (rs != null) {
+            if (this.rs != null) {
                 try {
-                    rs!!.close()
+                    this.rs!!.close()
                 } catch (sqlEx: SQLException) {
                 } // ignore
 
-                rs = null
+                this.rs = null
             }
 
-            if (stmt != null) {
+            if (this.stmt != null) {
                 try {
-                    stmt!!.close()
+                    this.stmt!!.close()
                 } catch (sqlEx: SQLException) {
                 } // ignore
 
-                stmt = null
+                this.stmt = null
             }
 
 
-            if (conn != null) {
+            if (this.conn != null) {
                 try {
-                    conn!!.close()
+                    this.conn!!.close()
                 } catch (sqlEx: SQLException) {
                 }
 
-                conn = null
+                this.conn = null
             }
 
 
@@ -129,26 +137,23 @@ class Mysqlfunctions() {
         var listofrs = mutableListOf<Triple<String, Double, Double>>()
         try {
             println("#In pin location#")
-            println(conn == null)
+            println(this.conn == null)
             //Log.d("connection","${conn == null}")
-            stmt = conn!!.createStatement() //error
-            rs = stmt!!.executeQuery("SELECT PinID, GPS FROM dongledb.Main;")
+            this.stmt = this.conn!!.createStatement() //error
+            this.rs = this.stmt!!.executeQuery("SELECT PinID, GPS FROM dongledb.Main;")
             var triple: Triple<String, String, String>
 
             // or alternatively, if you don't know ahead of time that
             // the query will be a SELECT...
 
-            if (stmt!!.execute("SELECT PinID, Lati, Longi FROM dongledb.Main;")) {
-                rs = stmt!!.resultSet
+            if (this.stmt!!.execute("SELECT PinID, Lati, Longi FROM dongledb.Main;")) {
+                this.rs = this.stmt!!.resultSet
             }
 
-
-
-
-            while (rs!!.next()) {
-                val pinID = (rs!!.getString("PinID"))
-                val latitude = rs!!.getDouble("Lati")
-                val longitude = rs!!.getDouble("Longi")
+            while (this.rs!!.next()) {
+                val pinID = (this.rs!!.getString("PinID"))
+                val latitude = this.rs!!.getDouble("Lati")
+                val longitude = this.rs!!.getDouble("Longi")
 
                 //val triple = Triple(pinID, latitude, longitude)
                 listofrs.add(Triple(pinID, latitude, longitude))
@@ -167,32 +172,32 @@ class Mysqlfunctions() {
             // in reverse-order of their creation
             // if they are no-longer needed
 
-            if (rs != null) {
+            if (this.rs != null) {
                 try {
-                    rs!!.close()
+                    this.rs!!.close()
                 } catch (sqlEx: SQLException) {
                 } // ignore
 
-                rs = null
+                this.rs = null
             }
 
-            if (stmt != null) {
+            if (this.stmt != null) {
                 try {
-                    stmt!!.close()
+                    this.stmt!!.close()
                 } catch (sqlEx: SQLException) {
                 } // ignore
 
-                stmt = null
+                this.stmt = null
             }
 
 
-            if (conn != null) {
+            if (this.conn != null) {
                 try {
-                    conn!!.close()
+                    this.conn!!.close()
                 } catch (sqlEx: SQLException) {
                 }
 
-                conn = null
+                this.conn = null
             }
 
 

@@ -32,6 +32,9 @@ import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import java.io.File
+import java.sql.*
+import java.sql.DriverManager
+import java.util.*
 import kotlin.collections.mutableListOf as mutableListOf
 
 class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapView.CurrentLocationEventListener{
@@ -92,16 +95,18 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         //Add POIItems
-        val sql = Mysqlfunctions() //1
-        sql.getConnection() //2
 
+        //val sql = Mysqlfunctions() //1
+        //sql.getConnection() //2
+        getConnection()
+        /*
         var locationList = sql.getPinLocation()  //3 error
         var markerList = mutableListOf<MapPOIItem>()
         for (i in locationList){
             val newMarker=addMapPOIItem(i.first, i.second, i.third)
             markerList.add(newMarker)
         }
-
+        */
         //val firstMarker=addMapPOIItem("hehe", 36.372885, 127.363504)
         //val secondMarker=addMapPOIItem("hihi", 36.372800, 127.363599)
         //var markerList = mutableListOf(firstMarker, secondMarker)
@@ -125,6 +130,46 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         }
     }
 
+
+    private fun getConnection() {
+        var stmt: Statement? = null
+        var rs: ResultSet? = null
+        var conn: Connection? = null
+        val username = "dongledbadmin"
+        val password = "dongledbadmin!@"
+
+        val connectionProps = Properties()
+        connectionProps.put("user", username)
+        connectionProps.put("password", password)
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance()
+            /*
+            var driver = DriverManager.getDriver("jdbc:" + "mysql" + "://" +
+                    "tsclouddb.cn3e2kgsuevi.ap-northeast-2.rds.amazonaws.com" +
+                    ":" + "3306" + "/")
+            Log.d("driverconnection", "${driver}")
+            Log.d("driverconnection", "${connectionProps}")
+            */
+            conn = DriverManager.getConnection(
+                "jdbc:" + "mysql" + "://" +
+                        "tsclouddb.cn3e2kgsuevi.ap-northeast-2.rds.amazonaws.com" +
+                        ":" + "3306" + "/" +
+                        "",
+                connectionProps
+            )
+
+        } catch (ex: SQLException) {
+            // handle any errors
+            ex.printStackTrace()
+            Log.d("connection!", "sqlexception")
+        }
+        catch (ex: Exception) {
+            // handle any errors
+            ex.printStackTrace()
+            Log.d("connection!", "geunyang Exception")
+        }
+        Log.d("connection!", "${conn}")
+    }
 
     private fun showWithTransferUtility() {
         // Initialize the Amazon Cognito credentials provider
