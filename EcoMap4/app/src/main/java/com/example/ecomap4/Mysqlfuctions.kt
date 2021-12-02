@@ -1,5 +1,6 @@
 package com.example.ecomap4
 
+
 import android.util.Log
 import java.lang.System.out
 import java.util.*
@@ -13,7 +14,7 @@ import java.sql.Statement
 
 
 
-
+/*
 fun main() {
     val sql = Mysqlfunctions() //1
 
@@ -25,7 +26,7 @@ fun main() {
     println(locationList)  //4
 
 }
-
+*/
 
 class Mysqlfunctions() {
 
@@ -35,21 +36,22 @@ class Mysqlfunctions() {
     val username = "dongledbadmin"
     val password = "dongledbadmin!@"
 
-    //var listofrs = mutableListOf<Triple<String, Double, Double>>()
+    var listofrs = mutableListOf<Triple<String, Double, Double>>()
 
     fun getConnection() {
+        Log.d("connection!", "in get connection")
         val connectionProps = Properties()
         connectionProps.put("user", this.username)
         connectionProps.put("password", this.password)
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance()
-            /*
-            var driver = DriverManager.getDriver("jdbc:" + "mysql" + "://" +
+
+            /*var driver = DriverManager.getDriver("jdbc:" + "mysql" + "://" +
                     "tsclouddb.cn3e2kgsuevi.ap-northeast-2.rds.amazonaws.com" +
                     ":" + "3306" + "/")
             Log.d("driverconnection", "${driver}")
-            Log.d("driverconnection", "${connectionProps}")
-            */
+            Log.d("driverconnection", "${connectionProps}")*/
+
             this.conn = DriverManager.getConnection(
                 "jdbc:" + "mysql" + "://" +
                         "tsclouddb.cn3e2kgsuevi.ap-northeast-2.rds.amazonaws.com" +
@@ -58,16 +60,26 @@ class Mysqlfunctions() {
                 connectionProps
             )
 
-        } /*catch (ex: SQLException) {
+        } catch (ex: SQLException) {
             // handle any errors
-            ex.printStackTrace()
+            //ex.printStackTrace()
             Log.d("connection!", "sqlexception")
-        } */
+            Log.d("connection!","SQLException: ${ex.message}")
+            Log.d("connection!","SQLState: ${ex.getSQLState()}")
+            Log.d("connection!","VendorError: ${ex.getErrorCode()}")
+            Log.d("connection!","casue: ${ex.cause}")
+            Log.d("connection!","stackTrace: ${ex.stackTrace}")
+            Log.d("connection!","nextException: ${ex.nextException}")
+            Log.d("connection!","localizedMessage: ${ex.localizedMessage}")
+            Log.d("connection!","suppressed: ${ex.suppressed}")
+        }
         catch (ex: Exception) {
             // handle any errors
             ex.printStackTrace()
             Log.d("connection!", "geunyang Exception")
         }
+
+        Log.d("connection!", "in get connection after catch")
         Log.d("connection!", "${this.conn}")
     }
 
@@ -136,8 +148,8 @@ class Mysqlfunctions() {
     fun getPinLocation(): MutableList<Triple<String, Double, Double>> { //: MutableList<Triple<String, Double, Double>>
         var listofrs = mutableListOf<Triple<String, Double, Double>>()
         try {
-            println("#In pin location#")
-            println(this.conn == null)
+            //println("#In pin location#")
+            Log.d("connection!getpin", "${this.conn == null}")
             //Log.d("connection","${conn == null}")
             this.stmt = this.conn!!.createStatement() //error
             this.rs = this.stmt!!.executeQuery("SELECT PinID, GPS FROM dongledb.Main;")

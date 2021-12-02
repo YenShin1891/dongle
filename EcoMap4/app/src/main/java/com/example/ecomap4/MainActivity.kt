@@ -36,6 +36,7 @@ import java.sql.*
 import java.sql.DriverManager
 import java.util.*
 import kotlin.collections.mutableListOf as mutableListOf
+import kotlin.concurrent.thread
 
 class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapView.CurrentLocationEventListener{
 
@@ -44,13 +45,18 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<NavigationView>
     private lateinit var currentLocation: MapPoint
 
+
+    //val sql = Mysqlfunctions()
+    var locationList = mutableListOf<Triple<String, Double, Double>>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val UserID= Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID) // context to this
+        //val UserID= Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID) // context to this
 
+        /*
         try {
             Amplify.configure(applicationContext)
             Log.d("AWSamplify", "Initialized Amplify")
@@ -63,6 +69,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
             showWithTransferUtility()
         }
 
+         */
 
         //------get location permission
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
@@ -84,7 +91,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         mapView.mapType=MapView.MapType.Hybrid
         mapView.setPOIItemEventListener(this)
         mapView.setCurrentLocationEventListener(this)
-        mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
+        //mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
         mapView.setShowCurrentLocationMarker(true)
 
         currentLocation= MapPoint.mapPointWithGeoCoord(36.372884, 127.363503)
@@ -95,20 +102,38 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         //Add POIItems
+        /*
+        object : Thread() {
+            override fun run() {
+                Log.d("connection!", "in Thread")
+                sql.getConnection()
+            }
+        }
+
+        class SqlThread : Thread() {
+            override fun run() {
+                Log.d("connection!", "in Thread")
+                sql.getConnection()
+                locationList = sql.getPinLocation()
+            }
+        }
+        val sqlThread = SqlThread()
+        sqlThread.start()
 
         //val sql = Mysqlfunctions() //1
         //sql.getConnection() //2
-        getConnection()
-        /*
-        var locationList = sql.getPinLocation()  //3 error
+
+         */
+
+        //var locationList = sql.getPinLocation()  //3 error
         var markerList = mutableListOf<MapPOIItem>()
         for (i in locationList){
             val newMarker=addMapPOIItem(i.first, i.second, i.third)
             markerList.add(newMarker)
         }
-        */
-        //val firstMarker=addMapPOIItem("hehe", 36.372885, 127.363504)
-        //val secondMarker=addMapPOIItem("hihi", 36.372800, 127.363599)
+
+        val firstMarker=addMapPOIItem("hehe", 36.372885, 127.363504)
+        val secondMarker=addMapPOIItem("hihi", 36.372800, 127.363599)
         //var markerList = mutableListOf(firstMarker, secondMarker)
 
         //move map center to current location if we have permission, else display toast message
@@ -131,6 +156,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
     }
 
 
+    /*
     private fun getConnection() {
         var stmt: Statement? = null
         var rs: ResultSet? = null
@@ -170,7 +196,9 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         }
         Log.d("connection!", "${conn}")
     }
+    */
 
+    /*
     private fun showWithTransferUtility() {
         // Initialize the Amazon Cognito credentials provider
         val credentialsProvider = CognitoCachingCredentialsProvider(
@@ -235,6 +263,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
 
         })
     }
+     */
 
     //======from below sang seong ei 's space======
     //======from below sang seong ei 's space======
