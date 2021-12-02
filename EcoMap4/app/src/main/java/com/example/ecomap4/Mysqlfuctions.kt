@@ -58,11 +58,14 @@ class Mysqlfunctions() {
                 connectionProps
             )
 
-        } /*catch (ex: SQLException) {
+        } catch (ex: SQLException) {
             // handle any errors
+            Log.d("connection!","SQLException: " + ex.message)
+            Log.d("connection!","SQLState: " + ex.getSQLState())
+            Log.d("connection!","VendorError: " + ex.getErrorCode())
             ex.printStackTrace()
             Log.d("connection!", "sqlexception")
-        } */
+        }
         catch (ex: Exception) {
             // handle any errors
             ex.printStackTrace()

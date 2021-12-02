@@ -9,12 +9,17 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.provider.Settings
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.amazonaws.auth.CognitoCachingCredentialsProvider
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferNetworkLossHandler
@@ -43,6 +48,8 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
     private lateinit var mapView: MapView
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<NavigationView>
     private lateinit var currentLocation: MapPoint
+
+    var sql = Mysqlfunctions()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,10 +102,6 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         //Add POIItems
-
-        //val sql = Mysqlfunctions() //1
-        //sql.getConnection() //2
-        getConnection()
         /*
         var locationList = sql.getPinLocation()  //3 error
         var markerList = mutableListOf<MapPOIItem>()
@@ -113,7 +116,6 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
 
         //move map center to current location if we have permission, else display toast message
         binding.myLocationButton.setOnClickListener {
-            bottomSheetBehavior.state=BottomSheetBehavior.STATE_HALF_EXPANDED
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                 if (currentLocation != null){
                     mapView.setMapCenterPoint(currentLocation, true)
@@ -128,47 +130,6 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
                 toast.show()
             }
         }
-    }
-
-
-    private fun getConnection() {
-        var stmt: Statement? = null
-        var rs: ResultSet? = null
-        var conn: Connection? = null
-        val username = "dongledbadmin"
-        val password = "dongledbadmin!@"
-
-        val connectionProps = Properties()
-        connectionProps.put("user", username)
-        connectionProps.put("password", password)
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance()
-            /*
-            var driver = DriverManager.getDriver("jdbc:" + "mysql" + "://" +
-                    "tsclouddb.cn3e2kgsuevi.ap-northeast-2.rds.amazonaws.com" +
-                    ":" + "3306" + "/")
-            Log.d("driverconnection", "${driver}")
-            Log.d("driverconnection", "${connectionProps}")
-            */
-            conn = DriverManager.getConnection(
-                "jdbc:" + "mysql" + "://" +
-                        "tsclouddb.cn3e2kgsuevi.ap-northeast-2.rds.amazonaws.com" +
-                        ":" + "3306" + "/" +
-                        "",
-                connectionProps
-            )
-
-        } catch (ex: SQLException) {
-            // handle any errors
-            ex.printStackTrace()
-            Log.d("connection!", "sqlexception")
-        }
-        catch (ex: Exception) {
-            // handle any errors
-            ex.printStackTrace()
-            Log.d("connection!", "geunyang Exception")
-        }
-        Log.d("connection!", "${conn}")
     }
 
     private fun showWithTransferUtility() {
@@ -238,6 +199,41 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
 
     //======from below sang seong ei 's space======
     //======from below sang seong ei 's space======
+    class CustomAdapter(private val dataSet: Array<String>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
+        /**
+         * Provide a reference to the type of views that you are using
+         * (custom ViewHolder).
+         */
+        class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            val textView: TextView
+
+            init {
+                // Define click listener for the ViewHolder's View.
+                textView = view.findViewById(R.id.textView)
+            }
+        }
+
+        // Create new views (invoked by the layout manager)
+        override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+            // Create a new view, which defines the UI of the list item
+            val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.text_row_item, viewGroup, false)
+            return ViewHolder(view)
+        }
+
+        // Replace the contents of a view (invoked by the layout manager)
+        override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+
+            // Get element from your dataset at this position and replace the
+            // contents of the view with that element
+            viewHolder.textView.text = dataSet[position]
+        }
+
+        // Return the size of your dataset (invoked by the layout manager)
+        override fun getItemCount() = dataSet.size
+
+    }
+
     private fun addMapPOIItem(idInput: String, lat: Double, lon: Double): MapPOIItem{
         val pin = MapPOIItem()
         pin.itemName=idInput//this property is essential for the pin to be visible. Let's store dbId here, and not use MMapPOIItem class
