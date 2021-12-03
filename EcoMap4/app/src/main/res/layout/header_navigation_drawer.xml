@@ -13,16 +13,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/pin_collapsedwindow_title"
+            android:id="@+id/pin_collapsed_window_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:textAppearance="?attr/textAppearanceHeadline6"
-            android:text= "This is collapsed window" />
+            android:text= "@string/header_title" />
         <TextView
-            android:id="@+id/pin_collapsedwindow_description"
+            android:id="@+id/pin_collapsed_window_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -30,7 +30,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:textAppearance="?attr/textAppearanceSubtitle1"
-            android:text= "The past is already gone, the future is not yet here. There’s only one moment for you to live." />
+            android:text= "@string/collapse_text" />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/collapsed_window"
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                 app:layout_constraintEnd_toStartOf="@id/thumbnail2"
                 android:scaleType="centerCrop"
                 android:src="@drawable/tree1"
-                ></ImageView>
+                />
             <ImageView
                 android:id="@+id/thumbnail2"
                 android:layout_width="120dp"
@@ -56,7 +56,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/tree2"
-                ></ImageView>
+                />
             <ImageView
                 android:id="@+id/thumbnail3"
                 android:layout_width="120dp"
@@ -66,7 +66,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/tree3"
-                ></ImageView>
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
@@ -90,7 +90,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:text= "This is full full window" />
+                android:text= "@string/full_text" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:text= "This is full full window" />
+                android:text= "@string/full_text" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:text= "This is full full window" />
+                android:text= "@string/full_text" />
 
         </LinearLayout>
 
