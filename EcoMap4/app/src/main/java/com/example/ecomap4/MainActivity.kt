@@ -76,40 +76,6 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         mapView.setMapCenterPoint(currentLocation, false)
 
 
-
-        /*
-        * PIN PAGE - BOTTOM DRAWER
-        * */
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
-
-        bottomSheetBehavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
-            override fun onSlide(bottomSheet: View, slideOffset: Float) { }
-
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when(newState){
-                    BottomSheetBehavior.STATE_COLLAPSED -> {
-                        binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
-                        binding.navigationView.inflateHeaderView(R.layout.header_navigation_drawer)
-                    }
-                    BottomSheetBehavior.STATE_DRAGGING -> {
-                        //Toast.makeText(applicationContext, "bottom sheet is dragging", Toast.LENGTH_SHORT).show()
-                        //Log.d("headerCount", "before ${binding.navigationView.headerCount}")
-                    }
-                    BottomSheetBehavior.STATE_EXPANDED -> {
-                        binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
-                        binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
-                    }
-                    BottomSheetBehavior.STATE_HALF_EXPANDED -> { }
-                    BottomSheetBehavior.STATE_HIDDEN -> { }
-                    BottomSheetBehavior.STATE_SETTLING -> { }
-                }
-            }
-        }
-        )
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        bottomSheetBehavior.peekHeight = 700
-
-
         /*
         * ADD POI ITEMS
          */
@@ -146,6 +112,42 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         val firstMarker=addMapPOIItem("hehe", 36.372885, 127.363504)
         val secondMarker=addMapPOIItem("hihi", 36.372800, 127.363599)
         //var markerList = mutableListOf(firstMarker, secondMarker)
+
+
+
+        /*
+        * PIN PAGE - BOTTOM DRAWER
+        * */
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
+
+        bottomSheetBehavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
+            override fun onSlide(bottomSheet: View, slideOffset: Float) { }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when(newState){
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
+                        binding.navigationView.inflateHeaderView(R.layout.header_navigation_drawer)
+                    }
+                    BottomSheetBehavior.STATE_DRAGGING -> {
+                        //if possible, show a middle drawer with only pin name
+
+                        //Toast.makeText(applicationContext, "bottom sheet is dragging", Toast.LENGTH_SHORT).show()
+                        //Log.d("headerCount", "before ${binding.navigationView.headerCount}")
+                    }
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+                        binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
+                        binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
+                    }
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> { }
+                    BottomSheetBehavior.STATE_HIDDEN -> { }
+                    BottomSheetBehavior.STATE_SETTLING -> { }
+                }
+            }
+        }
+        )
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehavior.peekHeight = 700
 
 
         /*
