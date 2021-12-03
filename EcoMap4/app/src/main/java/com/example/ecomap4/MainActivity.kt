@@ -2,43 +2,19 @@ package com.example.ecomap4
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.os.Parcel
-import android.os.Parcelable
-import android.provider.Settings
 import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
-import androidx.drawerlayout.widget.DrawerLayout
-import com.amazonaws.auth.CognitoCachingCredentialsProvider
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferNetworkLossHandler
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferState
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility
-import com.amazonaws.regions.Region
-import com.amazonaws.regions.Regions
-import com.amazonaws.services.s3.AmazonS3Client
-import com.amplifyframework.AmplifyException
-import com.amplifyframework.core.Amplify
 import com.example.ecomap4.databinding.ActivityMainBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.navigation.NavigationView
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
-import java.io.File
-import java.sql.*
-import java.sql.DriverManager
-import java.util.*
-import kotlin.collections.mutableListOf as mutableListOf
-import kotlin.concurrent.thread
 
 class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapView.CurrentLocationEventListener{
 
@@ -99,11 +75,10 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         currentLocation= MapPoint.mapPointWithGeoCoord(36.372884, 127.363503)
         mapView.setMapCenterPoint(currentLocation, false)
 
-        //Floating window to show when a pin is touched
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
-        //Add POIItems
+        /*
+        * ADD POI ITEMS
+         */
         /*
         object : Thread() {
             override fun run() {
@@ -138,9 +113,48 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         val secondMarker=addMapPOIItem("hihi", 36.372800, 127.363599)
         //var markerList = mutableListOf(firstMarker, secondMarker)
 
+
+
+        /*
+        * PIN PAGE - BOTTOM DRAWER
+        * */
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
+
+        bottomSheetBehavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
+            override fun onSlide(bottomSheet: View, slideOffset: Float) { }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when(newState){
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
+                        binding.navigationView.inflateHeaderView(R.layout.header_navigation_drawer)
+                    }
+                    BottomSheetBehavior.STATE_DRAGGING -> {
+                        //if possible, show a middle drawer with only pin name
+
+                        //Toast.makeText(applicationContext, "bottom sheet is dragging", Toast.LENGTH_SHORT).show()
+                        //Log.d("headerCount", "before ${binding.navigationView.headerCount}")
+                    }
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+                        binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
+                        binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
+                    }
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> { }
+                    BottomSheetBehavior.STATE_HIDDEN -> { }
+                    BottomSheetBehavior.STATE_SETTLING -> { }
+                }
+            }
+        }
+        )
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehavior.peekHeight = 700
+
+
+        /*
+        * CURRENT LOCATION BUTTON
+        * */
         //move map center to current location if we have permission, else display toast message
         binding.myLocationButton.setOnClickListener {
-            bottomSheetBehavior.state=BottomSheetBehavior.STATE_HALF_EXPANDED // STATE_HALF_EXPANDED
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                 if (currentLocation != null){
                     mapView.setMapCenterPoint(currentLocation, true)
@@ -156,48 +170,10 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
             }
         }
 
-        bottomSheetBehavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
 
-            }
-
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when(newState){
-                    BottomSheetBehavior.STATE_COLLAPSED -> {
-                        // peekHeight
-                        Toast.makeText(applicationContext,"bottom sheet is callapesd to peekHeight",Toast.LENGTH_SHORT).show()
-                    }
-                    BottomSheetBehavior.STATE_DRAGGING -> {
-                        Toast.makeText(applicationContext, "bottom sheet is dragging", Toast.LENGTH_SHORT).show()
-                    }
-                    BottomSheetBehavior.STATE_EXPANDED -> {
-                        // Fully expanded
-
-                        //val navView = findViewById<View>(R.id.navigation_view)
-                        Log.d("getheaderview", "${binding.navigationView.headerCount}")
-                        binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
-
-                        Log.d("getheaderview", "${binding.navigationView.headerCount}")
-                        val fullHeaderView = binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
-                        Log.d("getheaderview", "${binding.navigationView.headerCount}")
-
-                        //binding.navigationView.addHeaderView(fullHeaderView)
-
-                    }
-                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {
-                        // Half expanded
-                    }
-                    BottomSheetBehavior.STATE_HIDDEN -> {
-                        //
-                    }
-                    BottomSheetBehavior.STATE_SETTLING -> {
-                        // bottom sheet is settling
-                        Toast.makeText(applicationContext,"bottom sheet is settling",Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-        )
+        /*
+        * NEXT IMPLEMENTATION
+        * */
 
 
 
@@ -328,7 +304,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
 
     //Member methods of POIItemEventListener
     override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {}
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?, p2: MapPOIItem.CalloutBalloonButtonType?) {}
@@ -344,5 +320,3 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
     }
     override fun onCurrentLocationUpdateCancelled(p0: MapView?) {}
 }
-
-interface MyDrawerListener: DrawerLayout.DrawerListener
