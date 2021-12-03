@@ -9,12 +9,14 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.provider.Settings
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.drawerlayout.widget.DrawerLayout
 import com.amazonaws.auth.CognitoCachingCredentialsProvider
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferNetworkLossHandler
@@ -138,7 +140,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
 
         //move map center to current location if we have permission, else display toast message
         binding.myLocationButton.setOnClickListener {
-            bottomSheetBehavior.state=BottomSheetBehavior.STATE_HALF_EXPANDED
+            bottomSheetBehavior.state=BottomSheetBehavior.STATE_EXPANDED // STATE_HALF_EXPANDED
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                 if (currentLocation != null){
                     mapView.setMapCenterPoint(currentLocation, true)
@@ -148,11 +150,48 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
                     toast.show()
                 }
             }
-            else{
+            else {
                 val toast = Toast.makeText(this, "give me permission", Toast.LENGTH_SHORT)
                 toast.show()
             }
         }
+
+        bottomSheetBehavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when(newState){
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        // peekHeight
+                        Toast.makeText(applicationContext,"bottom sheet is callapesd to peekHeight",Toast.LENGTH_SHORT).show()
+                    }
+                    BottomSheetBehavior.STATE_DRAGGING -> {
+                        Toast.makeText(applicationContext, "bottom sheet is dragging", Toast.LENGTH_SHORT).show()
+                    }
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+                        // Fully expanded
+                        //binding.navigationView.getHeaderView()
+                    }
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {
+                        // Half expanded
+                    }
+                    BottomSheetBehavior.STATE_HIDDEN -> {
+                        //
+                    }
+                    BottomSheetBehavior.STATE_SETTLING -> {
+                        // bottom sheet is settling
+                        Toast.makeText(applicationContext,"bottom sheet is settling",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+        )
+
+
+
+
     }
 
 
@@ -295,3 +334,5 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
     }
     override fun onCurrentLocationUpdateCancelled(p0: MapView?) {}
 }
+
+interface MyDrawerListener: DrawerLayout.DrawerListener
