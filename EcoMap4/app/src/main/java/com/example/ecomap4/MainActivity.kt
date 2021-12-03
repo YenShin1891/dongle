@@ -140,7 +140,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
 
         //move map center to current location if we have permission, else display toast message
         binding.myLocationButton.setOnClickListener {
-            bottomSheetBehavior.state=BottomSheetBehavior.STATE_EXPANDED // STATE_HALF_EXPANDED
+            bottomSheetBehavior.state=BottomSheetBehavior.STATE_HALF_EXPANDED // STATE_HALF_EXPANDED
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                 if (currentLocation != null){
                     mapView.setMapCenterPoint(currentLocation, true)
@@ -172,7 +172,17 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
                     }
                     BottomSheetBehavior.STATE_EXPANDED -> {
                         // Fully expanded
-                        //binding.navigationView.getHeaderView()
+
+                        //val navView = findViewById<View>(R.id.navigation_view)
+                        Log.d("getheaderview", "${binding.navigationView.headerCount}")
+                        binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
+
+                        Log.d("getheaderview", "${binding.navigationView.headerCount}")
+                        val fullHeaderView = binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
+                        Log.d("getheaderview", "${binding.navigationView.headerCount}")
+
+                        //binding.navigationView.addHeaderView(fullHeaderView)
+
                     }
                     BottomSheetBehavior.STATE_HALF_EXPANDED -> {
                         // Half expanded
