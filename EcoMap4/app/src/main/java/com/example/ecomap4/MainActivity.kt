@@ -119,6 +119,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         * PIN PAGE - BOTTOM DRAWER
         * */
         bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
+        binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
 
         bottomSheetBehavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
             override fun onSlide(bottomSheet: View, slideOffset: Float) { }
@@ -126,18 +127,22 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when(newState){
                     BottomSheetBehavior.STATE_COLLAPSED -> {
-                        binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
-                        binding.navigationView.inflateHeaderView(R.layout.header_navigation_drawer)
+                        binding.navigationView.getHeaderView(1).visibility = View.GONE
+                        //binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
+                        //binding.navigationView.inflateHeaderView(R.layout.header_navigation_drawer)
                     }
                     BottomSheetBehavior.STATE_DRAGGING -> {
+                        binding.navigationView.getHeaderView(0).visibility = View.VISIBLE
+                        binding.navigationView.getHeaderView(1).visibility = View.VISIBLE
                         //if possible, show a middle drawer with only pin name
 
                         //Toast.makeText(applicationContext, "bottom sheet is dragging", Toast.LENGTH_SHORT).show()
                         //Log.d("headerCount", "before ${binding.navigationView.headerCount}")
                     }
                     BottomSheetBehavior.STATE_EXPANDED -> {
-                        binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
-                        binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
+                        binding.navigationView.getHeaderView(0).visibility = View.GONE
+                        //binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
+                        //binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
                     }
                     BottomSheetBehavior.STATE_HALF_EXPANDED -> { }
                     BottomSheetBehavior.STATE_HIDDEN -> { }
