@@ -1,6 +1,7 @@
 package com.example.ecomap4
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -115,9 +116,9 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
 
 
 
-        /*
+        /**
         * PIN PAGE - BOTTOM DRAWER
-        * */
+        */
         bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
         binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
 
@@ -161,9 +162,9 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         bottomSheetBehavior.halfExpandedRatio = 0.75F
 
 
-        /*
+        /**
         * CURRENT LOCATION BUTTON
-        * */
+        */
         //move map center to current location if we have permission, else display toast message
         binding.myLocationButton.setOnClickListener {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
@@ -182,10 +183,13 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         }
 
 
-        /*
-        * NEXT IMPLEMENTATION
-        * */
-
+        /**
+        * ADD PIN BUTTON
+        */
+        binding.addPinButton.setOnClickListener {
+            val uploadIntent: Intent = Intent(this, UploadActivity::class.java)
+            startActivity(uploadIntent)
+        }
 
 
 
