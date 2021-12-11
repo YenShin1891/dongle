@@ -2,6 +2,7 @@ package com.example.ecomap4
 
 import android.content.ContentProvider
 import android.content.ContentValues
+import android.content.Intent
 import android.database.Cursor
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -87,6 +88,9 @@ class MainFragment : Fragment() {
     private fun executeAfterResult(filePath : String){
         val toast = Toast.makeText(context, "Result is called back!", Toast.LENGTH_SHORT)
         toast.show()
+
+        val UploadIntent: Intent = Intent(context, UploadActivity::class.java)
+        startActivity(UploadIntent)
 
         //accessPicture(filePath)
     }
