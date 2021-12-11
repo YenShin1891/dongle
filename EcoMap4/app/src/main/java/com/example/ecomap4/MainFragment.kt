@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -89,7 +88,7 @@ class MainFragment : Fragment() {
         val toast = Toast.makeText(context, "Result is called back!", Toast.LENGTH_SHORT)
         toast.show()
 
-        accessPicture(filePath)
+        //accessPicture(filePath)
     }
 
     private fun accessPicture(filePath : String){
@@ -100,8 +99,8 @@ class MainFragment : Fragment() {
         val toast_works = Toast.makeText(context, "Bitmap is not null!", Toast.LENGTH_SHORT)
         toast_works.show()
         bitmap?.let {
-            binding.expCapture.setImageBitmap(bitmap)
-            binding.expCapture.invalidate()
+            //binding.expCapture.setImageBitmap(bitmap)
+            //binding.expCapture.invalidate()
         }
     }
 }
