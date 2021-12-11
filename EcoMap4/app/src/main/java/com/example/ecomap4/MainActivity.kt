@@ -69,7 +69,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         mapView.mapType=MapView.MapType.Hybrid
         mapView.setPOIItemEventListener(this)
         mapView.setCurrentLocationEventListener(this)
-        //mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
+        mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
         mapView.setShowCurrentLocationMarker(true)
 
         currentLocation= MapPoint.mapPointWithGeoCoord(36.372884, 127.363503)
@@ -128,12 +128,11 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
                 when(newState){
                     BottomSheetBehavior.STATE_COLLAPSED -> {
                         binding.navigationView.getHeaderView(1).visibility = View.GONE
+                        binding.navigationView.getHeaderView(0).visibility = View.VISIBLE
                         //binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
                         //binding.navigationView.inflateHeaderView(R.layout.header_navigation_drawer)
                     }
                     BottomSheetBehavior.STATE_DRAGGING -> {
-                        binding.navigationView.getHeaderView(0).visibility = View.VISIBLE
-                        binding.navigationView.getHeaderView(1).visibility = View.VISIBLE
                         //if possible, show a middle drawer with only pin name
 
                         //Toast.makeText(applicationContext, "bottom sheet is dragging", Toast.LENGTH_SHORT).show()
@@ -141,10 +140,14 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
                     }
                     BottomSheetBehavior.STATE_EXPANDED -> {
                         binding.navigationView.getHeaderView(0).visibility = View.GONE
+                        binding.navigationView.getHeaderView(1).visibility = View.VISIBLE
                         //binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
                         //binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
                     }
-                    BottomSheetBehavior.STATE_HALF_EXPANDED -> { }
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {
+                        binding.navigationView.getHeaderView(0).visibility = View.GONE
+                        binding.navigationView.getHeaderView(1).visibility = View.VISIBLE
+                    }
                     BottomSheetBehavior.STATE_HIDDEN -> { }
                     BottomSheetBehavior.STATE_SETTLING -> { }
                 }
@@ -153,6 +156,9 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         )
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         bottomSheetBehavior.peekHeight = 700
+        bottomSheetBehavior.isFitToContents = false //Now we can use HALF_EXPANDED
+        bottomSheetBehavior.expandedOffset = 100
+        bottomSheetBehavior.halfExpandedRatio = 0.75F
 
 
         /*
