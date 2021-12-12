@@ -309,6 +309,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         pin.mapPoint = MapPoint.mapPointWithGeoCoord(lat, lon)
         pin.markerType = MapPOIItem.MarkerType.BluePin
         pin.selectedMarkerType = MapPOIItem.MarkerType.RedPin
+        pin.isShowCalloutBalloonOnTouch=false
         mapView.addPOIItem(pin)
         return pin
     }
