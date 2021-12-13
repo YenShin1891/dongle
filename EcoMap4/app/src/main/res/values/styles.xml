@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.EcoMap.Description" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_marginTop">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+        </style>
+
+</resources>

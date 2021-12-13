@@ -5,6 +5,15 @@
     <string name="header_text"> 50m KI building </string>
     <string name="collapse_text">The past is already gone, the future is not yet here. There’s only one moment for you to live.</string>
     <string name="full_text">This is full full window</string>
+    <string name="label_location">위치</string>
+    <string name="submit">확인</string>
+    <string name="location_text">위치</string>
+    <string name="date_text">날짜</string>
+    <string name="label_date">"2021.12.13. "</string>
+    <string name="name_text">생물 이름</string>
+    <string name="lable_name">은행나무</string>
+    <string name="label_memo">관찰 메모</string>
+    <string name="memo_text">관찰 메모</string>
 
 
 </resources>
