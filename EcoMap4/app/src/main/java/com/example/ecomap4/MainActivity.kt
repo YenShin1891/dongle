@@ -119,7 +119,11 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         * PIN PAGE - BOTTOM DRAWER
         * */
         bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
-        binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
+        var fullPinInfo=binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
+        var card1month=fullPinInfo.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month1)
+        card1month.setOnClickListener{
+            Toast.makeText(applicationContext, "full window clicked", Toast.LENGTH_SHORT).show()
+        }
 
         bottomSheetBehavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
             override fun onSlide(bottomSheet: View, slideOffset: Float) { }
