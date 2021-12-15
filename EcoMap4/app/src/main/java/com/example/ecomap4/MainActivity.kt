@@ -2,9 +2,11 @@ package com.example.ecomap4
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -121,8 +123,10 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
         var fullPinInfo=binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
         var card1month=fullPinInfo.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month1)
+        var card1month1img=fullPinInfo.findViewById<ImageView>(R.id.thumbnail01_1)
         card1month.setOnClickListener{
             Toast.makeText(applicationContext, "full window clicked", Toast.LENGTH_SHORT).show()
+            card1month1img.setImageResource(R.drawable.tree3)
         }
 
         bottomSheetBehavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
