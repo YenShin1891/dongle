@@ -1,8 +1,8 @@
 package com.example.ecomap4
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -125,8 +125,10 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         var card1month=fullPinInfo.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month1)
         var card1month1img=fullPinInfo.findViewById<ImageView>(R.id.thumbnail01_1)
         card1month.setOnClickListener{
-            Toast.makeText(applicationContext, "full window clicked", Toast.LENGTH_SHORT).show()
-            card1month1img.setImageResource(R.drawable.tree3)
+            //Toast.makeText(applicationContext, "full window clicked", Toast.LENGTH_SHORT).show()
+            //card1month1img.setImageResource(R.drawable.tree3)
+            val bannerIntent: Intent = Intent(this, ManagePic::class.java)
+            startActivity(bannerIntent)
         }
 
         bottomSheetBehavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){

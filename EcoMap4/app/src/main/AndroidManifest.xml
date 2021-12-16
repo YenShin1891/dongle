@@ -38,6 +38,7 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
+        <activity android:name=".ManagePic"></activity>
         <activity android:name=".UploadActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
