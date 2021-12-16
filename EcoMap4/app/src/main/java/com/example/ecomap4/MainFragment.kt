@@ -37,6 +37,11 @@ class MainFragment : Fragment() {
             executeAfterResult(filePath)
         }
     }
+    val uploadLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result != null) {
+            //executeAfterResult(filePath)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,6 +95,7 @@ class MainFragment : Fragment() {
         toast.show()
 
         val UploadIntent: Intent = Intent(context, UploadActivity::class.java)
+        //uploadLauncher.launch(UploadIntent)
         startActivity(UploadIntent)
 
         //accessPicture(filePath)

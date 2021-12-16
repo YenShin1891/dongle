@@ -46,7 +46,10 @@ class UploadActivity (): AppCompatActivity(){
             // Respond to input text change
         }
 
-
+        binding.uploadSubmitButton.setOnClickListener{
+            //setResult(mainIntent)
+            finish()
+        }
     }
 
     private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
