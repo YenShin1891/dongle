@@ -1,11 +1,14 @@
 package com.example.ecomap4
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.example.ecomap4.databinding.ActivityUploadBinding
@@ -28,6 +31,7 @@ class UploadActivity (): AppCompatActivity(){
         // Get input text
         val input_location = binding.outlinedTextFieldLocation.editText?.text.toString()
         //val input_date = binding.outlinedTextFieldDate.editText?.text.toString()
+        var input_date: String = "Date"
 
         val sharedPreference = getSharedPreferences("CreateProfile", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreference.edit()
@@ -44,37 +48,36 @@ class UploadActivity (): AppCompatActivity(){
                 calendar.time = Date(it)
                 val calendarMilli = calendar.timeInMillis
 
-                binding.DateInput.text = "${calendar.get(Calendar.YEAR)}/" +
+                var myString = "${calendar.get(Calendar.YEAR)}/" +
                         "${calendar.get(Calendar.MONTH)}/" +
                         "${calendar.get(Calendar.DAY_OF_MONTH)}"
-                }
+                binding.DateInput.text = myString
+                input_date = myString
+            }
             datePicker.show(supportFragmentManager,datePicker.toString())
         }
 
         val input_name = binding.outlinedTextFieldName.editText?.text.toString()
         val input_memo = binding.outlinedTextFieldMemo.editText?.text.toString()
 
-//        if (input_date == null) {
-//            binding.tipResult.text = ""
-//            return
-//        }
 
         binding.outlinedTextFieldLocation.editText?.doOnTextChanged { input_location, _, _, _ ->
             // Respond to input text change
         }
-        //binding.DateInput.editText?.doOnTextChanged { input_date, _, _, _ ->
-            // Respond to input text change
-        //}
-        binding.outlinedTextFieldName.editText?.doOnTextChanged { input_name, _, _, _ ->
-            // Respond to input text change
-        }
-        binding.outlinedTextFieldMemo.editText?.doOnTextChanged { input_name, _, _, _ ->
-            // Respond to input text change
-        }
 
         binding.uploadSubmitButton.setOnClickListener{
-            //setResult(mainIntent)
-            finish()
+            if (input_date == "Date") {
+                Toast.makeText(this, "날짜를 입력해주세요!", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                val mainIntent: Intent = Intent(this, MainFragment::class.java)
+                mainIntent.putExtra("date", input_date)
+                mainIntent.putExtra("name", input_name)
+                mainIntent.putExtra("memo", input_memo)
+                setResult(RESULT_OK, mainIntent)
+                Log.d("input!", "HI ")
+                finish()
+            }
         }
     }
 
