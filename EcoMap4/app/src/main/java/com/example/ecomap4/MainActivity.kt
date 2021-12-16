@@ -28,7 +28,6 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
     private lateinit var currentLocation: MapPoint
     private var selectedPinNo=0
     private lateinit var selectedPin: Pin
-    private lateinit var pinInfos: Array<Void>
     private lateinit var halfPinInfoWindow: View
     private lateinit var fullPinInfoWindow: View
     var pinInfoList = mutableListOf<Pin>()
@@ -172,7 +171,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         var pin11 = Pin("백합나무", "Liriodendron tulipifera L.", 36.3679494, 127.3577242,
             "https://terms.naver.com/entry.naver?docId=3540207&cid=46694&categoryId=46694",
             arrayOf("여름"))
-        pin11.pic_array[11] = arrayOf(R.drawable.w_013, R.drawable.w_014, R.drawable.w_015)
+        pin11.pic_array[11] = arrayOf(R.drawable.w_013, R.drawable.w_014,R.drawable.w_015)
         pin11.memo_array[11] = arrayOf("","", "단풍이 들어가는 모습이 예쁘네요…")
         pinInfoList.add(pin11)
 
@@ -196,8 +195,6 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         pin14.pic_array[9] = arrayOf(R.drawable.e072_01, R.drawable.e072_02)
         pin14.memo_array[9] = arrayOf("", "백송의 잎은 다른 소나무에 비해 덜 거친것 같아보이네요")
         pinInfoList.add(pin14)
-
-
 //        var pinInfos=arrayOf(
 //            arrayOf("에베베베", "학명", 36.372885, 127.363504, "url", arrayOf("예쁜", "안예쁜"),
 //                arrayOf(1, "uri1", "uri2", "uri3"),
@@ -219,7 +216,6 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         halfPinInfoWindow=binding.navigationView.getHeaderView(0)
         fullPinInfoWindow=binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
         var card1month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month1)
-        var card1month1img=fullPinInfoWindow.findViewById<ImageView>(R.id.thumbnail01_1)
         card1month.setOnClickListener{
             //Toast.makeText(applicationContext, "full window clicked", Toast.LENGTH_SHORT).show()
             //card1month1img.setImageResource(R.drawable.tree3)
@@ -434,6 +430,22 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         selectedPin = pinInfoList[selectedPinNo]
         halfPinInfoWindow.findViewById<TextView>(R.id.pin_collapsed_window_title).text=selectedPin.pin_name
         halfPinInfoWindow.findViewById<TextView>(R.id.pin_collapsed_window_description).text=selectedPin.scientific_name
+        var j=0
+        for (i in 1 until 13){
+            if (!(selectedPin.pic_array[i].isEmpty())){
+                for (pics in selectedPin.pic_array[i]){
+                    if (j==0){
+                        halfPinInfoWindow.findViewById<ImageView>(R.id.thumbnail1).setImageResource(pics)
+                    }else if (j==1){
+                        halfPinInfoWindow.findViewById<ImageView>(R.id.thumbnail2).setImageResource(pics)
+                    }else if (j==2){
+                        halfPinInfoWindow.findViewById<ImageView>(R.id.thumbnail3).setImageResource(pics)
+                    }
+                    j+=1
+                }
+            }
+        }
+
         fullPinInfoWindow.findViewById<TextView>(R.id.pin_full_window_title).text=selectedPin.pin_name
         fullPinInfoWindow.findViewById<TextView>(R.id.pin_full_window_description).text=selectedPin.scientific_name
     }
@@ -463,8 +475,8 @@ class Pin(
     var wiki_url: String,
     var keywords: Array<String>
     ) {
-    var pic_array: Array<Array<Int>> = Array(12){emptyArray()}
-    var memo_array: Array<Array<String>> = Array(12){emptyArray()}
+    var pic_array: Array<Array<Int>> = Array(13){emptyArray()}
+    var memo_array: Array<Array<String>> = Array(13){emptyArray()}
 }
 
 
