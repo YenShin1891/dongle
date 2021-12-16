@@ -172,9 +172,33 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         var pin11 = Pin("백합나무", "Liriodendron tulipifera L.", 36.3679494, 127.3577242,
             "https://terms.naver.com/entry.naver?docId=3540207&cid=46694&categoryId=46694",
             arrayOf("여름"))
-        pin11.pic_array[11] = arrayOf(R.drawable.w_013, R.drawable.w_014,R.drawable.w_015)
+        pin11.pic_array[11] = arrayOf(R.drawable.w_013, R.drawable.w_014, R.drawable.w_015)
         pin11.memo_array[11] = arrayOf("","", "단풍이 들어가는 모습이 예쁘네요…")
         pinInfoList.add(pin11)
+
+        var pin12 = Pin("산사나무", "Crataegus pinnatifida", 36.37061388888889, 127.36012222222222,
+            "https://terms.naver.com/entry.naver?docId=1108500&cid=40942&categoryId=32816",
+            arrayOf("열매"))
+        pin12.pic_array[10] = arrayOf(R.drawable.e069_01, R.drawable.e069_02, R.drawablee.069_03)
+        pin12.memo_array[10] = arrayOf("","", "열매의 점들이 신기하여 지나가는길에 찍어보았어요")
+        pinInfoList.add(pin12)
+
+        var pin13 = Pin("산수유나무", "Cornus officinalis", 36.37038055555528, 127.36044999997222,
+            "https://terms.naver.com/entry.naver?docId=1211087&cid=40942&categoryId=32711",
+            arrayOf("열매", "겨울"))
+        pin13.pic_array[10] = arrayOf(R.drawable.e070_01, R.drawable.e070_02)
+        pin13.memo_array[10] = arrayOf("","", "바로 옆 산사나무 열매와는 다르게 표면이 매끈한 열매를 가지고 있네요")
+        pinInfoList.add(pin13)
+
+        var pin14 = Pin("백송", "Pinus bungeana", 36.37035833333056, 127.36065555527777,
+            "https://terms.naver.com/entry.naver?docId=1100185&cid=40942&categoryId=32685",
+            arrayOf("침엽수"))
+        pin14.pic_array[9] = arrayOf(R.drawable.e072_01, R.drawable.e072_02)
+        pin14.memo_array[9] = arrayOf("", "백송의 잎은 다른 소나무에 비해 덜 거친것 같아보이네요")
+        pinInfoList.add(pin14)
+
+
+
 
 
 //        var pinInfos=arrayOf(
