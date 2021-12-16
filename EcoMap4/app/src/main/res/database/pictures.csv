@@ -1,0 +1,4 @@
+pinId, uploadId, thumbnail, date, image, picture, memo
+pin4, 1, true, 2021-03-27, e001_01, KI 빌딩 주변에 배롱나무가 있었네요
+pin4, 2, true, 2021-09-16, e001_02_01, 배롱나무는 나무 껍질이 흰색이네요
+pin4, 2, false, 2021-09-16, e001_02_02, 배롱나무는 나무 껍질이 흰색이네요
