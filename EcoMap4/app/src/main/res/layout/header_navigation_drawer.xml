@@ -21,6 +21,7 @@
             android:layout_marginEnd="24dp"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:text= "@string/header_title" />
+
         <TextView
             android:id="@+id/pin_collapsed_window_description"
             android:layout_width="wrap_content"
@@ -31,6 +32,18 @@
             android:layout_marginEnd="24dp"
             android:textAppearance="?attr/textAppearanceSubtitle1"
             android:text= "@string/collapse_text" />
+
+        <TextView
+            android:id="@+id/url_wiki_collapsed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="24dp"
+
+            android:clickable="true"
+            android:textColor="#0C70F2"
+            android:text="@string/upload_wiki" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/collapsed_window"
             android:layout_width="match_parent"
