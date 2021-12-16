@@ -26,11 +26,12 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
     private lateinit var mapView: MapView
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<NavigationView>
     private lateinit var currentLocation: MapPoint
-    private var selectedPin=0
+    private var selectedPinNo=0
+    private lateinit var selectedPin: Pin
     private lateinit var pinInfos: Array<Void>
     private lateinit var halfPinInfoWindow: View
     private lateinit var fullPinInfoWindow: View
-
+    var pinInfoList = mutableListOf<Pin>()
     //val sql = Mysqlfunctions()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,14 +111,14 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
 
         //var locationList = sql.getPinLocation()  //3 error
         var markerList = mutableListOf<MapPOIItem>()
-
         var pin1 = Pin("에베베베", "학명", 36.372885, 127.363504, "url", arrayOf("예쁜", "안예쁜"))
-        pin1.pic_array[5] = arrayOf(0, 1, 2)
+        pin1.pic_array[5] = arrayOf(R.drawable.tree1, R.drawable.tree1, R.drawable.tree1)
         pin1.memo_array[5] = arrayOf("오우 이 나무 참 예브네요","오늘 날시가 참 좋아요","13인의아해가질주를한다")
-        var pin2 = Pin("에베베베", "학명", 36.372885, 127.363504, "url", arrayOf("예쁜", "안예쁜"))
-        pin1.pic_array[5] = arrayOf(0, 1, 2)
+        pinInfoList.add(pin1)
+        var pin2 = Pin("엘렐렐레", "학명없다", 36.372785, 127.363604, "url", arrayOf("예쁜", "안예쁜"))
+        pin1.pic_array[5] = arrayOf(R.drawable.tree2, R.drawable.tree2, R.drawable.tree2)
         pin1.memo_array[5] = arrayOf("오우 이 나무 참 예브네요","오늘 날시가 참 좋아요","13인의아해가질주를한다")
-
+        pinInfoList.add(pin2)
 //        var pinInfos=arrayOf(
 //            arrayOf("에베베베", "학명", 36.372885, 127.363504, "url", arrayOf("예쁜", "안예쁜"),
 //                arrayOf(1, "uri1", "uri2", "uri3"),
@@ -127,21 +128,19 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
 //                arrayOf(1, "uri1", "uri2", "uri3"),
 //                arrayOf("오우 이 나무 참 예브네요","오늘 날시가 참 좋아요","13인의아해가질주를한다"))
 //        )
-        for (i in 0 until (pinInfos.size)){
-            val pinArray = pinInfos[i]
-            val newMarker=addMapPOIItem(i.toString(), pinArray[2] as Double, pinArray[3] as Double)
-            markerList.add(newMarker)
+        for (i in pinInfoList.indices){
+            val pin= pinInfoList[i]
+            markerList.add(addMapPOIItem(i.toString(), pin.longi, pin.lati))
         }
-
-
 
         /*
         * PIN PAGE - BOTTOM DRAWER
         * */
         bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
-        var fullPinInfo=binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
-        var card1month=fullPinInfo.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month1)
-        var card1month1img=fullPinInfo.findViewById<ImageView>(R.id.thumbnail01_1)
+        halfPinInfoWindow=binding.navigationView.getHeaderView(0)
+        fullPinInfoWindow=binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
+        var card1month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month1)
+        var card1month1img=fullPinInfoWindow.findViewById<ImageView>(R.id.thumbnail01_1)
         card1month.setOnClickListener{
             //Toast.makeText(applicationContext, "full window clicked", Toast.LENGTH_SHORT).show()
             //card1month1img.setImageResource(R.drawable.tree3)
@@ -150,15 +149,13 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
             startActivity(bannerIntent)
         }
 
-        var wiki_url = fullPinInfo.findViewById<TextView>(R.id.url_wiki)
+        var wiki_url = fullPinInfoWindow.findViewById<TextView>(R.id.url_wiki)
         wiki_url.setOnClickListener {
             val wikiIntent: Intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://terms.naver.com/entry.naver?docId=768292&cid=46694&categoryId=46694"))
             Intent()
             startActivity(wikiIntent)
         }
 
-        var halfPinInfoWindow=binding.navigationView.getHeaderView(0)
-        var fullPinInfoWindow=binding.navigationView.getHeaderView(1)
         bottomSheetBehavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
             override fun onSlide(bottomSheet: View, slideOffset: Float) { }
 
@@ -167,15 +164,11 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
                     BottomSheetBehavior.STATE_COLLAPSED -> {
                         halfPinInfoWindow.visibility = View.VISIBLE
                         fullPinInfoWindow.visibility = View.GONE
-                        halfPinInfoWindow.findViewById<TextView>(R.id.pin_collapsed_window_title).text=pinInfos[selectedPin][0].toString()
-                        halfPinInfoWindow.findViewById<TextView>(R.id.pin_collapsed_window_description).text=pinInfos[selectedPin][1].toString()
                         //binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
                         //binding.navigationView.inflateHeaderView(R.layout.header_navigation_drawer)
-
                     }
                     BottomSheetBehavior.STATE_DRAGGING -> {
                         //if possible, show a middle drawer with only pin name
-
                         //Toast.makeText(applicationContext, "bottom sheet is dragging", Toast.LENGTH_SHORT).show()
                         //Log.d("headerCount", "before ${binding.navigationView.headerCount}")
                     }
@@ -184,14 +177,10 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
                         fullPinInfoWindow.visibility = View.VISIBLE
                         //binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
                         //binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
-                        fullPinInfo.findViewById<TextView>(R.id.full_drawer_title).text= pinInfos[selectedPin][0].toString()
-                        fullPinInfo.findViewById<TextView>(R.id.full_drawer_description).text= pinInfos[selectedPin][1].toString()
                     }
                     BottomSheetBehavior.STATE_HALF_EXPANDED -> {
                         halfPinInfoWindow.visibility = View.GONE
                         fullPinInfoWindow.visibility = View.VISIBLE
-                        fullPinInfo.findViewById<TextView>(R.id.full_drawer_title).text= pinInfos[selectedPin][0].toString()
-                        fullPinInfo.findViewById<TextView>(R.id.full_drawer_description).text= pinInfos[selectedPin][1].toString()
                     }
                     BottomSheetBehavior.STATE_HIDDEN -> { }
                     BottomSheetBehavior.STATE_SETTLING -> { }
@@ -362,7 +351,12 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
     //Member methods of POIItemEventListener
     override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        selectedPin = p1!!.itemName.toInt()
+        selectedPinNo = p1!!.itemName.toInt()
+        selectedPin = pinInfoList[selectedPinNo]
+        halfPinInfoWindow.findViewById<TextView>(R.id.pin_collapsed_window_title).text=selectedPin.pin_name
+        halfPinInfoWindow.findViewById<TextView>(R.id.pin_collapsed_window_description).text=selectedPin.scientific_name
+        fullPinInfoWindow.findViewById<TextView>(R.id.pin_full_window_title).text=selectedPin.pin_name
+        fullPinInfoWindow.findViewById<TextView>(R.id.pin_full_window_description).text=selectedPin.scientific_name
     }
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {}
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?, p2: MapPOIItem.CalloutBalloonButtonType?) {}
