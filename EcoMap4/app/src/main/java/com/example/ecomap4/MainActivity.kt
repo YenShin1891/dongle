@@ -19,7 +19,6 @@ import com.google.android.material.navigation.NavigationView
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
-import java.io.Serializable
 
 class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapView.CurrentLocationEventListener{
 
@@ -83,7 +82,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         mapView.setMapCenterPoint(currentLocation, false)
 
 
-        /*
+        /**
         * ADD POI ITEMS
          */
         /*
@@ -111,15 +110,23 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
 
         //var locationList = sql.getPinLocation()  //3 error
         var markerList = mutableListOf<MapPOIItem>()
-        var pinInfos=arrayOf(
-            arrayOf("에베베베", "학명", 36.372885, 127.363504, "url", arrayOf("예쁜", "안예쁜"),
-                arrayOf(1, "uri1", "uri2", "uri3"),
-                arrayOf("오우 이 나무 참 예브네요","오늘 날시가 참 좋아요","13인의아해가질주를한다")),
 
-            arrayOf("엘렐렐레", "학명없다", 36.372800, 127.363599, "url", arrayOf("예쁜", "안예쁜"),
-                arrayOf(1, "uri1", "uri2", "uri3"),
-                arrayOf("오우 이 나무 참 예브네요","오늘 날시가 참 좋아요","13인의아해가질주를한다"))
-        )
+        var pin1 = Pin("에베베베", "학명", 36.372885, 127.363504, "url", arrayOf("예쁜", "안예쁜"))
+        pin1.pic_array[5] = arrayOf(0, 1, 2)
+        pin1.memo_array[5] = arrayOf("오우 이 나무 참 예브네요","오늘 날시가 참 좋아요","13인의아해가질주를한다")
+        var pin2 = Pin("에베베베", "학명", 36.372885, 127.363504, "url", arrayOf("예쁜", "안예쁜"))
+        pin1.pic_array[5] = arrayOf(0, 1, 2)
+        pin1.memo_array[5] = arrayOf("오우 이 나무 참 예브네요","오늘 날시가 참 좋아요","13인의아해가질주를한다")
+
+//        var pinInfos=arrayOf(
+//            arrayOf("에베베베", "학명", 36.372885, 127.363504, "url", arrayOf("예쁜", "안예쁜"),
+//                arrayOf(1, "uri1", "uri2", "uri3"),
+//                arrayOf("오우 이 나무 참 예브네요","오늘 날시가 참 좋아요","13인의아해가질주를한다")),
+//
+//            arrayOf("엘렐렐레", "학명없다", 36.372800, 127.363599, "url", arrayOf("예쁜", "안예쁜"),
+//                arrayOf(1, "uri1", "uri2", "uri3"),
+//                arrayOf("오우 이 나무 참 예브네요","오늘 날시가 참 좋아요","13인의아해가질주를한다"))
+//        )
         for (i in 0 until (pinInfos.size)){
             val pinArray = pinInfos[i]
             val newMarker=addMapPOIItem(i.toString(), pinArray[2] as Double, pinArray[3] as Double)
@@ -371,3 +378,25 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
     }
     override fun onCurrentLocationUpdateCancelled(p0: MapView?) {}
 }
+
+/**
+ * Data Class
+ */
+class Pin(
+    var pin_name: String,
+    var scientific_name: String,
+    var longi: Double = 36.372885,
+    var lati: Double = 127.363504,
+    var wiki_url: String,
+    var keywords: Array<String>
+    ) {
+    var pic_array: Array<Array<Int>> = Array(12){emptyArray()}
+    var memo_array: Array<Array<String>> = Array(12){emptyArray()}
+}
+
+
+
+
+
+
+
