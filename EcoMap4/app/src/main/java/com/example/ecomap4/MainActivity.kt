@@ -111,14 +111,72 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
 
         //var locationList = sql.getPinLocation()  //3 error
         var markerList = mutableListOf<MapPOIItem>()
-        var pin1 = Pin("에베베베", "학명", 36.372885, 127.363504, "url", arrayOf("예쁜", "안예쁜"))
-        pin1.pic_array[5] = arrayOf(R.drawable.tree1, R.drawable.tree1, R.drawable.tree1)
-        pin1.memo_array[5] = arrayOf("오우 이 나무 참 예브네요","오늘 날시가 참 좋아요","13인의아해가질주를한다")
+
+        var pin1 = Pin("라일락", "Syringa vulgaris", 36.3739047, 127.3605267, "https://terms.naver.com/entry.naver?docId=2428094&cid=46694&categoryId=4669", arrayOf("향기로운", "봄"))
+        pin1.pic_array[4] = arrayOf(R.drawable.n001_01_2, R.drawable.n001_01_1)
+        pin1.memo_array[4] = arrayOf("", "오늘 날씨가 너무 맑았는데 꽃이 흰 꽃, 분홍색 꽃 등 여러 색깔을 관찰할 수 있었습니다. 라일락 향기를 평소에 좋아했는데 꽃의 생김새를 알 수 있어서 의미있는 관찰이었습니다.")
+        pin1.pic_array[9] = arrayOf(R.drawable.n001_02_1, R.drawable.n001_02_2)
+        pin1.memo_array[9] = arrayOf("", "라일락 꽃이 사라지니 잎이 괜히 더 커 보이네요")
         pinInfoList.add(pin1)
-        var pin2 = Pin("엘렐렐레", "학명없다", 36.372785, 127.363604, "url", arrayOf("예쁜", "안예쁜"))
-        pin1.pic_array[5] = arrayOf(R.drawable.tree2, R.drawable.tree2, R.drawable.tree2)
-        pin1.memo_array[5] = arrayOf("오우 이 나무 참 예브네요","오늘 날시가 참 좋아요","13인의아해가질주를한다")
+
+        var pin2 = Pin("별목련", "magnolia stellata", 36.3748103, 127.3594976, "https://terms.naver.com/entry.naver?docId=1214083&cid=40942&categoryId=32708", arrayOf("희귀한", "봄"))
+        pin2.pic_array[3] = arrayOf(R.drawable.n060_01_1, R.drawable.n060_02_1)
+        pin2.memo_array[3] = arrayOf("이제 꽃이 막 피기 시작하네요! 다 피면 더 예쁠 것 같아요 :)", "일주일 만에 꽃이 활짝 폈네요 :)")
+        pin2.pic_array[9] = arrayOf(R.drawable.n060_03_1, R.drawable.n60_03_2)
+        pin2.memo_array[9] = arrayOf("", "꽃이 없으니 목련인지 알아볼수가 없네요")
         pinInfoList.add(pin2)
+
+        var pin3 = Pin("칠엽수", "Aesculus turbinata", 36.3705, 127.3605, "https://terms.naver.com/entry.naver?docId=1148308&cid=40942&categoryId=32699", arrayOf("열매", "봄", "가을"))
+        pin3.pic_array[10] = arrayOf(R.drawable.e064_01, R.drawable.e064_02, R.drawable.e064_03)
+        pin3.memo_array[10] = arrayOf("", "칠엽수의 열매와 잎을 자세히 보고싶다면?")
+        pinInfoList.add(pin3)
+
+        var pin4 = Pin("장미", "Rosa", 36.373555, 127.364035, "https://terms.naver.com/entry.naver?docId=769534&cid=46694&categoryId=46694", arrayOf("향기로운", "사진명소", "화려한"))
+        pin4.pic_array[6] = arrayOf( R.drawable.n033_01_1, R.drawable.n033_01_2)
+        pin4.memo_array[10] = arrayOf("", "장미가 마치 꽃다발처럼 피었어요!")
+        pinInfoList.add(pin4)
+
+        var pin5 = Pin("단풍나무", "Acer palmatum Thunb", 36.3691, 127.3625, "https://terms.naver.com/entry.naver?docId=5782203&cid=62861&categoryId=62861", arrayOf("가을", "화려한"))
+        pin5.pic_array[6] = arrayOf( R.drawable.e023_01_1)
+        pin5.memo_array[6] = arrayOf("아직 물들기 전 단풍입니다")
+        pin5.pic_array[10] = arrayOf(R.drawable.e023_02_1, R.drawable.e023_02_2, R.drawable.e023_02_3)
+        pin5.memo_array[10] = arrayOf("","", "슬슬 가을이 다가오면 빨간색으로 물들겠죠?")
+        pinInfoList.add(pin5)
+
+        var pin6 = Pin("반송", "umbrella pine", 36.371519, 127.361277, "https://terms.naver.com/entry.naver?docId=5782195&cid=62861&categoryId=62861", arrayOf("침엽수", "겨울"))
+        pin6.pic_array[10] = arrayOf( R.drawable.e034_01_1, R.drawable.e034_01_2, R.drawable.e034_01_3)
+        pin6.memo_array[10] = arrayOf("","파란색 하늘이랑 너무 잘 어우러지는 소나무에요.", "반송을 가까이서 찍어보았어요")
+        pinInfoList.add(pin6)
+
+        var pin7 = Pin("감나무", "Diospyros kaki", 36.36776972, 127.357695,
+            "https://terms.naver.com/entry.naver?docId=1056396&cid=40942&categoryId=32692",
+            arrayOf("가을", "열매"))
+        pin7.pic_array[11] = arrayOf( R.drawable.w_001, R.drawable.w_002,R.drawable.w_003)
+        pin7.memo_array[11] = arrayOf("","", "가을이라 주렁주렁 열린 감을 기대했는데 없어서 아쉬웠습니다.")
+        pinInfoList.add(pin7)
+
+        var pin9 = Pin("마", "Dioscorea batatas", 36.36759, 127.3586,
+            "https://terms.naver.com/entry.naver?docId=1090070&cid=40942&categoryId=32816",
+            arrayOf("가을", "뿌리채소"))
+        pin9.pic_array[11] = arrayOf(R.drawable.w_007, R.drawable.w_008,R.drawable.w_009)
+        pin9.memo_array[11] = arrayOf("","", "땅 파보면 진짜 마 있는거에요?")
+        pinInfoList.add(pin9)
+
+        var pin10 = Pin("스트로브잣나무", "Pinus strobus", 36.36835259, 127.35761709,
+            "https://terms.naver.com/entry.naver?docId=1117287&cid=40942&categoryId=32685",
+            arrayOf("침엽수"))
+        pin10.pic_array[11] = arrayOf(R.drawable.w_010, R.drawable.w_011,R.drawable.w_012)
+        pin10.memo_array[11] = arrayOf("","", "왜 영문 이름이 white pine인건가요? 그건 그렇고 침엽수인데도 잎이 말라서 갈색이 되었어요")
+        pinInfoList.add(pin10)
+
+        var pin11 = Pin("백합나무", "Liriodendron tulipifera L.", 36.3679494, 127.3577242,
+            "https://terms.naver.com/entry.naver?docId=3540207&cid=46694&categoryId=46694",
+            arrayOf("여름"))
+        pin11.pic_array[11] = arrayOf(R.drawable.w_013, R.drawable.w_014,R.drawable.w_015)
+        pin11.memo_array[11] = arrayOf("","", "단풍이 들어가는 모습이 예쁘네요…")
+        pinInfoList.add(pin11)
+
+
 //        var pinInfos=arrayOf(
 //            arrayOf("에베베베", "학명", 36.372885, 127.363504, "url", arrayOf("예쁜", "안예쁜"),
 //                arrayOf(1, "uri1", "uri2", "uri3"),
