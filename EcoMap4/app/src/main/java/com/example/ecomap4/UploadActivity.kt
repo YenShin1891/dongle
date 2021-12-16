@@ -1,6 +1,7 @@
 package com.example.ecomap4
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -8,6 +9,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.example.ecomap4.databinding.ActivityUploadBinding
+import com.google.android.material.datepicker.MaterialDatePicker
+import java.util.*
 
 class UploadActivity (): AppCompatActivity(){
 
@@ -24,7 +27,24 @@ class UploadActivity (): AppCompatActivity(){
 
         // Get input text
         val input_location = binding.outlinedTextFieldLocation.editText?.text.toString()
-        val input_date = binding.outlinedTextFieldDate.editText?.text.toString()
+        //val input_date = binding.outlinedTextFieldDate.editText?.text.toString()
+
+        val sharedPreference = getSharedPreferences("CreateProfile", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreference.edit()
+
+        binding.outlinedTextFieldDate.setOnClickListener{
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("날짜")
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build()
+                //.setInputMode(MaterialDatePicker.INPUT_MODE_TEXT)
+
+
+            datePicker.show(supportFragmentManager,datePicker.toString())
+
+
+        }
+
         val input_name = binding.outlinedTextFieldName.editText?.text.toString()
         val input_memo = binding.outlinedTextFieldMemo.editText?.text.toString()
 
