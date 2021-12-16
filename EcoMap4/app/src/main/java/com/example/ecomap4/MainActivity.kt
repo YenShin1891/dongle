@@ -19,6 +19,7 @@ import com.google.android.material.navigation.NavigationView
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
+import java.io.Serializable
 
 class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapView.CurrentLocationEventListener{
 
@@ -26,10 +27,12 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
     private lateinit var mapView: MapView
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<NavigationView>
     private lateinit var currentLocation: MapPoint
-
+    private var selectedPin=0
+    private lateinit var pinInfos: Array<Void>
+    private lateinit var halfPinInfoWindow: View
+    private lateinit var fullPinInfoWindow: View
 
     //val sql = Mysqlfunctions()
-    var locationList = mutableListOf<Triple<String, Double, Double>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,14 +111,20 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
 
         //var locationList = sql.getPinLocation()  //3 error
         var markerList = mutableListOf<MapPOIItem>()
-        for (i in locationList){
-            val newMarker=addMapPOIItem(i.first, i.second, i.third)
+        var pinInfos=arrayOf(
+            arrayOf("에베베베", "학명", 36.372885, 127.363504, "url", arrayOf("예쁜", "안예쁜"),
+                arrayOf(1, "uri1", "uri2", "uri3"),
+                arrayOf("오우 이 나무 참 예브네요","오늘 날시가 참 좋아요","13인의아해가질주를한다")),
+
+            arrayOf("엘렐렐레", "학명없다", 36.372800, 127.363599, "url", arrayOf("예쁜", "안예쁜"),
+                arrayOf(1, "uri1", "uri2", "uri3"),
+                arrayOf("오우 이 나무 참 예브네요","오늘 날시가 참 좋아요","13인의아해가질주를한다"))
+        )
+        for (i in 0 until (pinInfos.size)){
+            val pinArray = pinInfos[i]
+            val newMarker=addMapPOIItem(i.toString(), pinArray[2] as Double, pinArray[3] as Double)
             markerList.add(newMarker)
         }
-
-        val firstMarker=addMapPOIItem("hehe", 36.372885, 127.363504)
-        val secondMarker=addMapPOIItem("hihi", 36.372800, 127.363599)
-        //var markerList = mutableListOf(firstMarker, secondMarker)
 
 
 
@@ -129,6 +138,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         card1month.setOnClickListener{
             //Toast.makeText(applicationContext, "full window clicked", Toast.LENGTH_SHORT).show()
             //card1month1img.setImageResource(R.drawable.tree3)
+
             val bannerIntent: Intent = Intent(this, ManagePic::class.java)
             startActivity(bannerIntent)
         }
@@ -140,16 +150,21 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
             startActivity(wikiIntent)
         }
 
+        var halfPinInfoWindow=binding.navigationView.getHeaderView(0)
+        var fullPinInfoWindow=binding.navigationView.getHeaderView(1)
         bottomSheetBehavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
             override fun onSlide(bottomSheet: View, slideOffset: Float) { }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when(newState){
                     BottomSheetBehavior.STATE_COLLAPSED -> {
-                        binding.navigationView.getHeaderView(1).visibility = View.GONE
-                        binding.navigationView.getHeaderView(0).visibility = View.VISIBLE
+                        halfPinInfoWindow.visibility = View.VISIBLE
+                        fullPinInfoWindow.visibility = View.GONE
+                        halfPinInfoWindow.findViewById<TextView>(R.id.pin_collapsed_window_title).text=pinInfos[selectedPin][0].toString()
+                        halfPinInfoWindow.findViewById<TextView>(R.id.pin_collapsed_window_description).text=pinInfos[selectedPin][1].toString()
                         //binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
                         //binding.navigationView.inflateHeaderView(R.layout.header_navigation_drawer)
+
                     }
                     BottomSheetBehavior.STATE_DRAGGING -> {
                         //if possible, show a middle drawer with only pin name
@@ -158,14 +173,18 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
                         //Log.d("headerCount", "before ${binding.navigationView.headerCount}")
                     }
                     BottomSheetBehavior.STATE_EXPANDED -> {
-                        binding.navigationView.getHeaderView(0).visibility = View.GONE
-                        binding.navigationView.getHeaderView(1).visibility = View.VISIBLE
+                        halfPinInfoWindow.visibility = View.GONE
+                        fullPinInfoWindow.visibility = View.VISIBLE
                         //binding.navigationView.removeHeaderView(binding.navigationView.getHeaderView(0))
                         //binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
+                        fullPinInfo.findViewById<TextView>(R.id.full_drawer_title).text= pinInfos[selectedPin][0].toString()
+                        fullPinInfo.findViewById<TextView>(R.id.full_drawer_description).text= pinInfos[selectedPin][1].toString()
                     }
                     BottomSheetBehavior.STATE_HALF_EXPANDED -> {
-                        binding.navigationView.getHeaderView(0).visibility = View.GONE
-                        binding.navigationView.getHeaderView(1).visibility = View.VISIBLE
+                        halfPinInfoWindow.visibility = View.GONE
+                        fullPinInfoWindow.visibility = View.VISIBLE
+                        fullPinInfo.findViewById<TextView>(R.id.full_drawer_title).text= pinInfos[selectedPin][0].toString()
+                        fullPinInfo.findViewById<TextView>(R.id.full_drawer_description).text= pinInfos[selectedPin][1].toString()
                     }
                     BottomSheetBehavior.STATE_HIDDEN -> { }
                     BottomSheetBehavior.STATE_SETTLING -> { }
@@ -336,6 +355,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
     //Member methods of POIItemEventListener
     override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        selectedPin = p1!!.itemName.toInt()
     }
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {}
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?, p2: MapPOIItem.CalloutBalloonButtonType?) {}
