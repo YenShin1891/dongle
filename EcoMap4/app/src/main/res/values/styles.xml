@@ -7,5 +7,19 @@
         <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
         <item name="android:textAppearance">?attr/textAppearanceBody1</item>
         </style>
+    <style name="FullImageDisplay">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">410dp</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+    <style name="FullImageText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginBottom">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
 
 </resources>
