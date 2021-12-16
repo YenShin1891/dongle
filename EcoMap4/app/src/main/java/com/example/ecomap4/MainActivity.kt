@@ -179,7 +179,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         var pin12 = Pin("산사나무", "Crataegus pinnatifida", 36.37061388888889, 127.36012222222222,
             "https://terms.naver.com/entry.naver?docId=1108500&cid=40942&categoryId=32816",
             arrayOf("열매"))
-        pin12.pic_array[10] = arrayOf(R.drawable.e069_01, R.drawable.e069_02, R.drawablee.069_03)
+        pin12.pic_array[10] = arrayOf(R.drawable.e069_01, R.drawable.e069_02, R.drawable.e069_03)
         pin12.memo_array[10] = arrayOf("","", "열매의 점들이 신기하여 지나가는길에 찍어보았어요")
         pinInfoList.add(pin12)
 
@@ -196,9 +196,6 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         pin14.pic_array[9] = arrayOf(R.drawable.e072_01, R.drawable.e072_02)
         pin14.memo_array[9] = arrayOf("", "백송의 잎은 다른 소나무에 비해 덜 거친것 같아보이네요")
         pinInfoList.add(pin14)
-
-
-
 
 
 //        var pinInfos=arrayOf(
