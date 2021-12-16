@@ -3,10 +3,12 @@ package com.example.ecomap4
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -129,6 +131,13 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
             //card1month1img.setImageResource(R.drawable.tree3)
             val bannerIntent: Intent = Intent(this, ManagePic::class.java)
             startActivity(bannerIntent)
+        }
+
+        var wiki_url = fullPinInfo.findViewById<TextView>(R.id.url_wiki)
+        wiki_url.setOnClickListener {
+            val wikiIntent: Intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://terms.naver.com/entry.naver?docId=768292&cid=46694&categoryId=46694"))
+            Intent()
+            startActivity(wikiIntent)
         }
 
         bottomSheetBehavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
