@@ -52,6 +52,18 @@
                     android:text="희귀한" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/chip7"
+                    android:visibility="visible"
+                    android:layout_marginLeft="10dp"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipBackgroundColor="@color/white"
+                    app:checkedIconVisible="true"
+                    app:checkedIconTint="@color/design_default_color_primary"
+                    android:text="향기로운" />
+
+                <com.google.android.material.chip.Chip
                     android:id="@+id/chip2"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
@@ -102,7 +114,37 @@
                     android:text="동물" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip7"
+                    android:id="@+id/chip8"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipBackgroundColor="@color/white"
+                    app:checkedIconVisible="true"
+                    app:checkedIconTint="@color/design_default_color_primary"
+                    android:text="봄" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip9"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipBackgroundColor="@color/white"
+                    app:checkedIconVisible="true"
+                    app:checkedIconTint="@color/design_default_color_primary"
+                    android:text="여름" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip10"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipBackgroundColor="@color/white"
+                    app:checkedIconVisible="true"
+                    app:checkedIconTint="@color/design_default_color_primary"
+                    android:text="가을" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip11"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -110,6 +152,17 @@
                     app:checkedIconVisible="true"
                     app:checkedIconTint="@color/design_default_color_primary"
                     android:text="겨울" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip12"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipBackgroundColor="@color/white"
+                    app:checkedIconVisible="true"
+                    app:checkedIconTint="@color/design_default_color_primary"
+                    android:text="뿌리채소" />
+
 
 
 
