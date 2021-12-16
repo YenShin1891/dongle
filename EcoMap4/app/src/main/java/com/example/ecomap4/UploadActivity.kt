@@ -32,17 +32,24 @@ class UploadActivity (): AppCompatActivity(){
         val sharedPreference = getSharedPreferences("CreateProfile", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreference.edit()
 
-        binding.outlinedTextFieldDate.setOnClickListener{
+        binding.DateInput.setOnClickListener{
             val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("날짜")
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
                 //.setInputMode(MaterialDatePicker.INPUT_MODE_TEXT)
 
+            datePicker.addOnPositiveButtonClickListener {
+                val calendar = Calendar.getInstance()
+                calendar.time = Date(it)
+                val calendarMilli = calendar.timeInMillis
+
+                binding.DateInput.text = "${calendar.get(Calendar.MONTH)}/" +
+                        "${calendar.get(Calendar.DAY_OF_MONTH)}/" +
+                        "${calendar.get(Calendar.YEAR)}"
+                }
 
             datePicker.show(supportFragmentManager,datePicker.toString())
-
-
         }
 
         val input_name = binding.outlinedTextFieldName.editText?.text.toString()
@@ -56,9 +63,9 @@ class UploadActivity (): AppCompatActivity(){
         binding.outlinedTextFieldLocation.editText?.doOnTextChanged { input_location, _, _, _ ->
             // Respond to input text change
         }
-        binding.outlinedTextFieldDate.editText?.doOnTextChanged { input_date, _, _, _ ->
+        //binding.DateInput.editText?.doOnTextChanged { input_date, _, _, _ ->
             // Respond to input text change
-        }
+        //}
         binding.outlinedTextFieldName.editText?.doOnTextChanged { input_name, _, _, _ ->
             // Respond to input text change
         }

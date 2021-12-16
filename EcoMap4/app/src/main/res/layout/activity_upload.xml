@@ -48,20 +48,16 @@
             style="@style/Widget.EcoMap.Description"
             android:text= "@string/date_text"
             />
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextField_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/horizontal_margin"
-            android:hint="@string/label_date"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/DateInput"
+            android:layout_width="365dp"
+            android:layout_height="65dp"
+            android:layout_marginHorizontal="24dp"
+            app:backgroundTint="@color/white"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/grey"
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            />
 
         <TextView
             android:layout_width="wrap_content"
