@@ -3,8 +3,8 @@
 
     <string name="header_title"> 배롱나무 </string>
     <string name="header_text"> 50m KI building </string>
-    <string name="collapse_text">The past is already gone, the future is not yet here. There’s only one moment for you to live.</string>
-    <string name="full_text">This is full full window</string>
+    <string name="collapse_text">학명</string>
+    <string name="full_text">학명</string>
     <string name="label_location">위치</string>
     <string name="submit">확인</string>
     <string name="location_text">현위치</string>
