@@ -230,6 +230,12 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
             Intent()
             startActivity(wikiIntent)
         }
+        var wiki_url2 = halfPinInfoWindow.findViewById<TextView>(R.id.url_wiki_collapsed)
+        wiki_url2.setOnClickListener {
+            val wikiIntent2: Intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://terms.naver.com/entry.naver?docId=768292&cid=46694&categoryId=46694"))
+            Intent()
+            startActivity(wikiIntent2)
+        }
 
         bottomSheetBehavior.addBottomSheetCallback(object:BottomSheetBehavior.BottomSheetCallback(){
             override fun onSlide(bottomSheet: View, slideOffset: Float) { }

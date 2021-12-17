@@ -1,5 +1,6 @@
 package com.example.ecomap4
 
+import android.app.Activity.RESULT_OK
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.Intent
@@ -8,6 +9,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,9 +39,14 @@ class MainFragment : Fragment() {
             executeAfterResult(filePath)
         }
     }
-    val uploadLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result != null) {
-            //executeAfterResult(filePath)
+    val uploadLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { myResult ->
+        Log.d("input!", "YESSSSSSSSSSS ")
+        if (myResult.resultCode == RESULT_OK) {
+            val input_name = myResult.data?.getStringExtra("name")
+            val input_date = myResult.data?.getStringExtra("date")
+            val input_memo = myResult.data?.getStringExtra("memo")
+            Log.d("input!", "${input_name} ${input_date} ${input_memo} ")
+            Toast.makeText(context, "${input_name} ${input_date} ${input_memo} ", Toast.LENGTH_SHORT).show()
         }
     }
 
