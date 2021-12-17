@@ -270,7 +270,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         bottomSheetBehavior.peekHeight = 700
         bottomSheetBehavior.isFitToContents = false //Now we can use HALF_EXPANDED
         bottomSheetBehavior.expandedOffset = 100
-        bottomSheetBehavior.halfExpandedRatio = 0.75F
+        bottomSheetBehavior.halfExpandedRatio = 0.70F
 
 
         /*
@@ -297,7 +297,205 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         /*
         * NEXT IMPLEMENTATION
         * */
+        binding.walkButton.setOnClickListener {
+            val walkIntent: Intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://kko.to/-Rd3qfOfT"))
+            Intent()
+            startActivity(walkIntent)
+        }
 
+
+
+        binding.chip1.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                for (pins in markerList) {
+                    if (buttonView.text in (pinInfoList[(pins.itemName.toInt())].keywords)) {
+                        pins.setAlpha(1f)
+                    } else {
+                        pins.setAlpha(0f)
+                    }
+                }
+            } else {
+                for (pins in markerList) {
+                    pins.setAlpha(1f)
+                }
+            }
+        }
+
+        binding.chip2.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                for (pins in markerList) {
+                    if (buttonView.text in (pinInfoList[(pins.itemName.toInt())].keywords)) {
+                        pins.setAlpha(1f)
+                    } else {
+                        pins.setAlpha(0f)
+                    }
+                }
+            } else {
+                for (pins in markerList) {
+                    pins.setAlpha(1f)
+                }
+            }
+        }
+
+        binding.chip3.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                for (pins in markerList) {
+                    if (buttonView.text in (pinInfoList[(pins.itemName.toInt())].keywords)) {
+                        pins.setAlpha(1f)
+                    } else {
+                        pins.setAlpha(0f)
+                    }
+                }
+            } else {
+                for (pins in markerList) {
+                    pins.setAlpha(1f)
+                }
+            }
+        }
+
+        binding.chip4.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                for (pins in markerList) {
+                    if (buttonView.text in (pinInfoList[(pins.itemName.toInt())].keywords)) {
+                        pins.setAlpha(1f)
+                    } else {
+                        pins.setAlpha(0f)
+                    }
+                }
+            } else {
+                for (pins in markerList) {
+                    pins.setAlpha(1f)
+                }
+            }
+        }
+
+        binding.chip5.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                for (pins in markerList) {
+                    if (buttonView.text in (pinInfoList[(pins.itemName.toInt())].keywords)) {
+                        pins.setAlpha(1f)
+                    } else {
+                        pins.setAlpha(0f)
+                    }
+                }
+            } else {
+                for (pins in markerList) {
+                    pins.setAlpha(1f)
+                }
+            }
+        }
+
+        binding.chip6.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                for (pins in markerList) {
+                    if (buttonView.text in (pinInfoList[(pins.itemName.toInt())].keywords)) {
+                        pins.setAlpha(1f)
+                    } else {
+                        pins.setAlpha(0f)
+                    }
+                }
+            } else {
+                for (pins in markerList) {
+                    pins.setAlpha(1f)
+                }
+            }
+        }
+
+        binding.chip7.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                for (pins in markerList) {
+                    if (buttonView.text in (pinInfoList[(pins.itemName.toInt())].keywords)) {
+                        pins.setAlpha(1f)
+                    } else {
+                        pins.setAlpha(0f)
+                    }
+                }
+            } else {
+                for (pins in markerList) {
+                    pins.setAlpha(1f)
+                }
+            }
+        }
+
+        binding.chip8.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                for (pins in markerList) {
+                    if (buttonView.text in (pinInfoList[(pins.itemName.toInt())].keywords)) {
+                        pins.setAlpha(1f)
+                    } else {
+                        pins.setAlpha(0f)
+                    }
+                }
+            } else {
+                for (pins in markerList) {
+                    pins.setAlpha(1f)
+                }
+            }
+        }
+
+        binding.chip9.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                for (pins in markerList) {
+                    if (buttonView.text in (pinInfoList[(pins.itemName.toInt())].keywords)) {
+                        pins.setAlpha(1f)
+                    } else {
+                        pins.setAlpha(0f)
+                    }
+                }
+            } else {
+                for (pins in markerList) {
+                    pins.setAlpha(1f)
+                }
+            }
+        }
+
+        binding.chip10.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                for (pins in markerList) {
+                    if (buttonView.text in (pinInfoList[(pins.itemName.toInt())].keywords)) {
+                        pins.setAlpha(1f)
+                    } else {
+                        pins.setAlpha(0f)
+                    }
+                }
+            } else {
+                for (pins in markerList) {
+                    pins.setAlpha(1f)
+                }
+            }
+        }
+
+        binding.chip11.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                for (pins in markerList) {
+                    if (buttonView.text in (pinInfoList[(pins.itemName.toInt())].keywords)) {
+                        pins.setAlpha(1f)
+                    } else {
+                        pins.setAlpha(0f)
+                    }
+                }
+            } else {
+                for (pins in markerList) {
+                    pins.setAlpha(1f)
+                }
+            }
+        }
+
+        binding.chip12.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                for (pins in markerList) {
+                    if (buttonView.text in (pinInfoList[(pins.itemName.toInt())].keywords)) {
+                        pins.setAlpha(1f)
+                    } else {
+                        pins.setAlpha(0f)
+                    }
+                }
+            } else {
+                for (pins in markerList) {
+                    pins.setAlpha(1f)
+                }
+            }
+        }
 
 
 

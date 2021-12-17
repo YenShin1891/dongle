@@ -15,6 +15,7 @@
     <string name="label_memo">관찰 메모</string>
     <string name="memo_text">관찰 메모</string>
     <string name="upload_wiki">지식백과 보러 가기</string>
+    <string name="walk_text">산책</string>
 
 
 </resources>

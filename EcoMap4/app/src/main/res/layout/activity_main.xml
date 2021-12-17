@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:overScrollMode="ifContentScrolls"
             android:scrollbars="none"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             >
 
             <com.google.android.material.chip.ChipGroup
@@ -171,15 +171,30 @@
         </HorizontalScrollView>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/walk_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="95dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/walk_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:icon="@drawable/ic_baseline_directions_walk_24"
+            app:iconPadding="0dp"
+            app:iconSize="20dp"
+            />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/my_location_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="160dp"
             app:backgroundTint="@color/white"
 
             app:icon="@drawable/ic_baseline_my_location_24"
-            app:iconSize="18dp"
+            app:iconSize="23dp"
             app:iconPadding="0dp"
             app:iconGravity="textStart"
             app:iconTint="@color/black"
@@ -193,7 +208,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             />
 
-        
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
