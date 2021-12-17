@@ -217,22 +217,19 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         fullPinInfoWindow=binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
         var card1month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month1)
         card1month.setOnClickListener{
-            //Toast.makeText(applicationContext, "full window clicked", Toast.LENGTH_SHORT).show()
-            //card1month1img.setImageResource(R.drawable.tree3)
-
             val bannerIntent: Intent = Intent(this, ManagePic::class.java)
             startActivity(bannerIntent)
         }
 
-        var wiki_url = fullPinInfoWindow.findViewById<TextView>(R.id.url_wiki)
-        wiki_url.setOnClickListener {
-            val wikiIntent: Intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://terms.naver.com/entry.naver?docId=768292&cid=46694&categoryId=46694"))
+        var wiki_url1 = fullPinInfoWindow.findViewById<TextView>(R.id.url_wiki)
+        wiki_url1.setOnClickListener {
+            val wikiIntent: Intent = Intent(Intent.ACTION_VIEW, Uri.parse(selectedPin.wiki_url))
             Intent()
             startActivity(wikiIntent)
         }
         var wiki_url2 = halfPinInfoWindow.findViewById<TextView>(R.id.url_wiki_collapsed)
         wiki_url2.setOnClickListener {
-            val wikiIntent2: Intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://terms.naver.com/entry.naver?docId=768292&cid=46694&categoryId=46694"))
+            val wikiIntent2: Intent = Intent(Intent.ACTION_VIEW, Uri.parse(selectedPin.wiki_url))
             Intent()
             startActivity(wikiIntent2)
         }
@@ -436,6 +433,8 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         selectedPin = pinInfoList[selectedPinNo]
         halfPinInfoWindow.findViewById<TextView>(R.id.pin_collapsed_window_title).text=selectedPin.pin_name
         halfPinInfoWindow.findViewById<TextView>(R.id.pin_collapsed_window_description).text=selectedPin.scientific_name
+        fullPinInfoWindow.findViewById<TextView>(R.id.pin_full_window_title).text=selectedPin.pin_name
+        fullPinInfoWindow.findViewById<TextView>(R.id.pin_full_window_description).text=selectedPin.scientific_name
         var j=0
         for (i in 1 until 13){
             if (!(selectedPin.pic_array[i].isEmpty())){
@@ -451,9 +450,198 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
                 }
             }
         }
+        fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month1).visibility=View.VISIBLE
+        fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month2).visibility=View.VISIBLE
+        fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month3).visibility=View.VISIBLE
+        fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month4).visibility=View.VISIBLE
+        fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month5).visibility=View.VISIBLE
+        fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month6).visibility=View.VISIBLE
+        fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month7).visibility=View.VISIBLE
+        fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month8).visibility=View.VISIBLE
+        fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month9).visibility=View.VISIBLE
+        fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month10).visibility=View.VISIBLE
+        fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month11).visibility=View.VISIBLE
+        fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month12).visibility=View.VISIBLE
 
-        fullPinInfoWindow.findViewById<TextView>(R.id.pin_full_window_title).text=selectedPin.pin_name
-        fullPinInfoWindow.findViewById<TextView>(R.id.pin_full_window_description).text=selectedPin.scientific_name
+        if (selectedPin.pic_array[1].isEmpty()){
+            fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month1).visibility=View.GONE
+        }
+        else{
+            if (selectedPin.pic_array[1].size>=1){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail01_1).setImageResource(selectedPin.pic_array[1][0])
+            }
+            if (selectedPin.pic_array[1].size>=2){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail01_2).setImageResource(selectedPin.pic_array[1][1])
+            }
+            if (selectedPin.pic_array[1].size>=3){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail01_3).setImageResource(selectedPin.pic_array[1][2])
+            }
+        }
+
+        if (selectedPin.pic_array[2].isEmpty()){
+            fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month2).visibility=View.GONE
+        }
+        else{
+            if (selectedPin.pic_array[2].size>=1){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail02_1).setImageResource(selectedPin.pic_array[2][0])
+            }
+            if (selectedPin.pic_array[2].size>=2){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail02_2).setImageResource(selectedPin.pic_array[2][1])
+            }
+            if (selectedPin.pic_array[2].size>=3){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail02_3).setImageResource(selectedPin.pic_array[2][2])
+            }
+        }
+
+        if (selectedPin.pic_array[3].isEmpty()){
+            fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month3).visibility=View.GONE
+        }
+        else{
+            if (selectedPin.pic_array[3].size>=1){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail03_1).setImageResource(selectedPin.pic_array[3][0])
+            }
+            if (selectedPin.pic_array[3].size>=2){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail03_2).setImageResource(selectedPin.pic_array[3][1])
+            }
+            if (selectedPin.pic_array[3].size>=3){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail03_3).setImageResource(selectedPin.pic_array[3][2])
+            }
+        }
+
+        if (selectedPin.pic_array[4].isEmpty()){
+            fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month4).visibility=View.GONE
+        }
+        else{
+            if (selectedPin.pic_array[4].size>=1){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail04_1).setImageResource(selectedPin.pic_array[4][0])
+            }
+            if (selectedPin.pic_array[4].size>=2){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail04_2).setImageResource(selectedPin.pic_array[4][1])
+            }
+            if (selectedPin.pic_array[4].size>=3){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail04_3).setImageResource(selectedPin.pic_array[4][2])
+            }
+        }
+
+        if (selectedPin.pic_array[5].isEmpty()){
+            fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month5).visibility=View.GONE
+        }
+        else{
+            if (selectedPin.pic_array[5].size>=1){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail05_1).setImageResource(selectedPin.pic_array[5][0])
+            }
+            if (selectedPin.pic_array[5].size>=2){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail05_2).setImageResource(selectedPin.pic_array[5][1])
+            }
+            if (selectedPin.pic_array[5].size>=3){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail05_3).setImageResource(selectedPin.pic_array[5][2])
+            }
+        }
+
+        if (selectedPin.pic_array[6].isEmpty()){
+            fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month6).visibility=View.GONE
+        }
+        else{
+            if (selectedPin.pic_array[6].size>=1){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail06_1).setImageResource(selectedPin.pic_array[6][0])
+            }
+            if (selectedPin.pic_array[6].size>=2){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail06_2).setImageResource(selectedPin.pic_array[6][1])
+            }
+            if (selectedPin.pic_array[6].size>=3){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail06_3).setImageResource(selectedPin.pic_array[6][2])
+            }
+        }
+
+        if (selectedPin.pic_array[7].isEmpty()){
+            fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month7).visibility=View.GONE
+        }
+        else{
+            if (selectedPin.pic_array[7].size>=1){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail07_1).setImageResource(selectedPin.pic_array[7][0])
+            }
+            if (selectedPin.pic_array[7].size>=2){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail07_2).setImageResource(selectedPin.pic_array[7][1])
+            }
+            if (selectedPin.pic_array[7].size>=3){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail07_3).setImageResource(selectedPin.pic_array[7][2])
+            }
+        }
+
+        if (selectedPin.pic_array[8].isEmpty()){
+            fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month8).visibility=View.GONE
+        }
+        else{
+            if (selectedPin.pic_array[8].size>=1){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail08_1).setImageResource(selectedPin.pic_array[8][0])
+            }
+            if (selectedPin.pic_array[8].size>=2){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail08_2).setImageResource(selectedPin.pic_array[8][1])
+            }
+            if (selectedPin.pic_array[8].size>=3){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail08_3).setImageResource(selectedPin.pic_array[8][2])
+            }
+        }
+
+        if (selectedPin.pic_array[9].isEmpty()){
+            fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month9).visibility=View.GONE
+        }
+        else{
+            if (selectedPin.pic_array[9].size>=1){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail09_1).setImageResource(selectedPin.pic_array[9][0])
+            }
+            if (selectedPin.pic_array[9].size>=2){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail09_2).setImageResource(selectedPin.pic_array[9][1])
+            }
+            if (selectedPin.pic_array[9].size>=3){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail09_3).setImageResource(selectedPin.pic_array[9][2])
+            }
+        }
+
+        if (selectedPin.pic_array[10].isEmpty()){
+            fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month10).visibility=View.GONE
+        }
+        else{
+            if (selectedPin.pic_array[10].size>=1){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail10_1).setImageResource(selectedPin.pic_array[10][0])
+            }
+            if (selectedPin.pic_array[10].size>=2){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail10_2).setImageResource(selectedPin.pic_array[10][1])
+            }
+            if (selectedPin.pic_array[10].size>=3){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail10_3).setImageResource(selectedPin.pic_array[10][2])
+            }
+        }
+
+        if (selectedPin.pic_array[11].isEmpty()){
+            fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month11).visibility=View.GONE
+        }
+        else{
+            if (selectedPin.pic_array[11].size>=1){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail11_1).setImageResource(selectedPin.pic_array[11][0])
+            }
+            if (selectedPin.pic_array[11].size>=2){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail11_2).setImageResource(selectedPin.pic_array[11][1])
+            }
+            if (selectedPin.pic_array[11].size>=3){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail11_3).setImageResource(selectedPin.pic_array[11][2])
+            }
+        }
+
+        if (selectedPin.pic_array[12].isEmpty()){
+            fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month12).visibility=View.GONE
+        }
+        else{
+            if (selectedPin.pic_array[12].size>=1){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail12_1).setImageResource(selectedPin.pic_array[12][0])
+            }
+            if (selectedPin.pic_array[12].size>=2){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail12_2).setImageResource(selectedPin.pic_array[12][1])
+            }
+            if (selectedPin.pic_array[12].size>=3){
+                fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail12_3).setImageResource(selectedPin.pic_array[12][2])
+            }
+        }
     }
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {}
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?, p2: MapPOIItem.CalloutBalloonButtonType?) {}
