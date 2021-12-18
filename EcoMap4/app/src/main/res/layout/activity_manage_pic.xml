@@ -12,68 +12,29 @@
         android:layout_width="match_parent"
         android:orientation="vertical">
         <ImageView
+            android:id="@+id/fullImage1"
             style="@style/FullImageDisplay"
-            android:src="@drawable/tree1"/>
+            android:src="@drawable/e064_01"/>
         <TextView
+            android:id="@+id/fullText1"
             style="@style/FullImageText"
-            android:text="밤의 식료품 가게
-\n케케묵은 먼지 속에
-\n죽어서 하루 더 손때 묻고
-\n터무니없이 하루 더 기다리는
-\n북어들,
-\n북어들의 일 개 분대가
-\n나란히 꼬챙이에 꿰어져 있었다.
-\n나는 죽음이 꿰뚫은 대가리를 말한 셈이다.
-\n한 쾌의 혀가
-\n자갈처럼 죄다 딱딱했다.
-\n나는 말의 변비증을 앓는 사람들과
-\n무덤 속의 벙어리를 말한 셈이다.
-\n말라붙고 짜부라진 눈,
-\n북어들의 빳빳한 지느러미.
-\n막대기 같은 생각
-\n빛나지 않는 막대기 같은 사람들이
-\n가슴에 싱싱한 지느러미를 달고
-\n헤엄쳐 갈 데 없는 사람들이
-\n불쌍하다고 생각하는 순간,
-\n느닷없이
-\n북어들이 커다랗게 입을 벌리고
-\n거봐, 너도 북어지 너도 북어지 너도 북어지
-\n귀가 먹먹하도록 부르짖고 있었다."/>
+            android:text="칠엽수의 열매를 처음 봤는데 완전 신기해요!!"/>
         <ImageView
+            android:id="@+id/fullImage2"
             style="@style/FullImageDisplay"
-            android:src="@drawable/tree1"/>
+            android:src="@drawable/e064_02"/>
         <TextView
+            android:id="@+id/fullText2"
             style="@style/FullImageText"
-            android:text="13인의아해가도로로질주하오.
-\n(길은막다른골목이적당하오.)
-\n제1의아해가무섭다고그리오.
-\n제2의아해도무섭다고그리오.
-\n제3의아해도무섭다고그리오.
-\n제4의아해도무섭다고그리오.
-\n제5의아해도무섭다고그리오.
-\n제6의아해도무섭다고그리오.
-\n제7의아해도무섭다고그리오.
-\n제8의아해도무섭다고그리오.
-\n제9의아해도무섭다고그리오.
-\n제10의아해도무섭다고그리오.
-\n제11의아해가무섭다고그리오.
-\n제12의아해도무섭다고그리오.
-\n제13의아해도무섭다고그리오.
-\n13인의아해는무서운아해와무서워하는아해와그렇게뿐이모였소.\n(다른사정은없는것이차라리나았소)
-\n
-\n그중에1인의아해가무서운아해라도좋소.
-\n그중에2인의아해가무서운아해라도좋소.
-\n그중에2인의아해가무서워하는아해라도좋소.
-\n그중에1인의아해가무서워하는아해라도좋소.
-\n
-\n(길은뚫린골목이라도적당하오.)
-\n13인의아해가도로로질주하지아니하여도좋소."/>
+            android:text="무성한 칠엽수"/>
         <ImageView
+            android:id="@+id/fullImage3"
             style="@style/FullImageDisplay"
-            android:src="@drawable/tree1"/>
+            android:src="@drawable/e064_03"/>
         <TextView
+            android:id="@+id/fullText3"
             style="@style/FullImageText"
-            android:text="holololololololololololololololololo"/>
+            android:text="칠엽수의 잎을 자세히 보고싶다면?"/>
 
     </LinearLayout>
 

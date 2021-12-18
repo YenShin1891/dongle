@@ -215,16 +215,107 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
         halfPinInfoWindow=binding.navigationView.getHeaderView(0)
         fullPinInfoWindow=binding.navigationView.inflateHeaderView(R.layout.full_navigation_drawer)
+        var month = 1
+
         var card1month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month1)
         card1month.setOnClickListener{
             val bannerIntent: Intent = Intent(this, ManagePic::class.java)
+            bannerIntent.putExtra("selectedPinPictures", selectedPin.pic_array[month])
+            bannerIntent.putExtra("selectedPinMemos", selectedPin.memo_array[month])
+            startActivity(bannerIntent)
+        }
+        month+=1
+        var card2month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month2)
+        card2month.setOnClickListener{
+            val bannerIntent: Intent = Intent(this, ManagePic::class.java)
+            bannerIntent.putExtra("selectedPinPictures", selectedPin.pic_array[month])
+            bannerIntent.putExtra("selectedPinMemos", selectedPin.memo_array[month])
+            startActivity(bannerIntent)
+        }
+        month+=1
+        var card3month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month3)
+        card3month.setOnClickListener{
+            val bannerIntent: Intent = Intent(this, ManagePic::class.java)
+            bannerIntent.putExtra("selectedPinPictures", selectedPin.pic_array[month])
+            bannerIntent.putExtra("selectedPinMemos", selectedPin.memo_array[month])
+            startActivity(bannerIntent)
+        }
+        month+=1
+        var card4month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month4)
+        card4month.setOnClickListener{
+            val bannerIntent: Intent = Intent(this, ManagePic::class.java)
+            bannerIntent.putExtra("selectedPinPictures", selectedPin.pic_array[month])
+            bannerIntent.putExtra("selectedPinMemos", selectedPin.memo_array[month])
+            startActivity(bannerIntent)
+        }
+        month+=1
+        var card5month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month5)
+        card5month.setOnClickListener{
+            val bannerIntent: Intent = Intent(this, ManagePic::class.java)
+            bannerIntent.putExtra("selectedPinPictures", selectedPin.pic_array[month])
+            bannerIntent.putExtra("selectedPinMemos", selectedPin.memo_array[month])
+            startActivity(bannerIntent)
+        }
+        month+=1
+        var card6month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month6)
+        card6month.setOnClickListener{
+            val bannerIntent: Intent = Intent(this, ManagePic::class.java)
+            bannerIntent.putExtra("selectedPinPictures", selectedPin.pic_array[month])
+            bannerIntent.putExtra("selectedPinMemos", selectedPin.memo_array[month])
+            startActivity(bannerIntent)
+        }
+        month+=1
+        var card7month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month7)
+        card7month.setOnClickListener{
+            val bannerIntent: Intent = Intent(this, ManagePic::class.java)
+            bannerIntent.putExtra("selectedPinPictures", selectedPin.pic_array[month])
+            bannerIntent.putExtra("selectedPinMemos", selectedPin.memo_array[month])
+            startActivity(bannerIntent)
+        }
+        month+=1
+        var card8month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month8)
+        card8month.setOnClickListener{
+            val bannerIntent: Intent = Intent(this, ManagePic::class.java)
+            bannerIntent.putExtra("selectedPinPictures", selectedPin.pic_array[month])
+            bannerIntent.putExtra("selectedPinMemos", selectedPin.memo_array[month])
+            startActivity(bannerIntent)
+        }
+        month+=1
+        var card9month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month9)
+        card9month.setOnClickListener{
+            val bannerIntent: Intent = Intent(this, ManagePic::class.java)
+            bannerIntent.putExtra("selectedPinPictures", selectedPin.pic_array[month])
+            bannerIntent.putExtra("selectedPinMemos", selectedPin.memo_array[month])
+            startActivity(bannerIntent)
+        }
+        month+=1
+        var card10month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month10)
+        card10month.setOnClickListener{
+            val bannerIntent: Intent = Intent(this, ManagePic::class.java)
+            bannerIntent.putExtra("selectedPinPictures", selectedPin.pic_array[month])
+            bannerIntent.putExtra("selectedPinMemos", selectedPin.memo_array[month])
+            startActivity(bannerIntent)
+        }
+        month+=1
+        var card11month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month11)
+        card11month.setOnClickListener{
+            val bannerIntent: Intent = Intent(this, ManagePic::class.java)
+            bannerIntent.putExtra("selectedPinPictures", selectedPin.pic_array[month])
+            bannerIntent.putExtra("selectedPinMemos", selectedPin.memo_array[month])
+            startActivity(bannerIntent)
+        }
+        month+=1
+        var card12month=fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month12)
+        card12month.setOnClickListener{
+            val bannerIntent: Intent = Intent(this, ManagePic::class.java)
+            bannerIntent.putExtra("selectedPinPictures", selectedPin.pic_array[month])
+            bannerIntent.putExtra("selectedPinMemos", selectedPin.memo_array[month])
             startActivity(bannerIntent)
         }
 
         var wiki_url1 = fullPinInfoWindow.findViewById<TextView>(R.id.url_wiki)
         wiki_url1.setOnClickListener {
             val wikiIntent: Intent = Intent(Intent.ACTION_VIEW, Uri.parse(selectedPin.wiki_url))
-            Intent()
             startActivity(wikiIntent)
         }
         var wiki_url2 = halfPinInfoWindow.findViewById<TextView>(R.id.url_wiki_collapsed)
@@ -633,6 +724,38 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         halfPinInfoWindow.findViewById<TextView>(R.id.pin_collapsed_window_description).text=selectedPin.scientific_name
         fullPinInfoWindow.findViewById<TextView>(R.id.pin_full_window_title).text=selectedPin.pin_name
         fullPinInfoWindow.findViewById<TextView>(R.id.pin_full_window_description).text=selectedPin.scientific_name
+
+
+        halfPinInfoWindow.findViewById<ImageView>(R.id.thumbnail1).setImageResource(R.drawable.tree0)
+        halfPinInfoWindow.findViewById<ImageView>(R.id.thumbnail2).setImageResource(R.drawable.tree0)
+        halfPinInfoWindow.findViewById<ImageView>(R.id.thumbnail3).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail01_1).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail01_2).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail01_3).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail02_1).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail02_2).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail02_3).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail03_1).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail03_2).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail03_3).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail04_1).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail04_2).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail04_3).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail05_1).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail05_2).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail05_3).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail06_1).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail06_2).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail06_3).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail09_1).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail09_2).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail09_3).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail10_1).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail10_2).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail10_3).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail11_1).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail11_2).setImageResource(R.drawable.tree0)
+        fullPinInfoWindow.findViewById<ImageView>(R.id.card_thumbnail11_3).setImageResource(R.drawable.tree0)
         var j=0
         for (i in 1 until 13){
             if (!(selectedPin.pic_array[i].isEmpty())){
@@ -660,6 +783,7 @@ class MainActivity() : AppCompatActivity(), MapView.POIItemEventListener, MapVie
         fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month10).visibility=View.VISIBLE
         fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month11).visibility=View.VISIBLE
         fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month12).visibility=View.VISIBLE
+
 
         if (selectedPin.pic_array[1].isEmpty()){
             fullPinInfoWindow.findViewById<com.google.android.material.card.MaterialCardView>(R.id.full_pin_info_card_month1).visibility=View.GONE
